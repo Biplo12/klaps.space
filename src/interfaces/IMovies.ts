@@ -32,6 +32,7 @@ export interface IMovie {
   language: string;
   duration: number;
   posterUrl: string | null;
+  backdropUrl: string | null;
   videoUrl: string | null;
   createdAt: string;
   updatedAt: string;

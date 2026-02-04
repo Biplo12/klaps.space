@@ -3,9 +3,19 @@ const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY!;
 
 export async function apiFetch<T>(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit & { params?: Record<string, string> } = {}
 ): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
+  const url = new URL(`${API_URL}${path}`);
+
+  if (options.params) {
+    Object.entries(options.params).forEach(([key, value]) => {
+      if (value) {
+        url.searchParams.set(key, value);
+      }
+    });
+  }
+
+  const res = await fetch(url.toString(), {
     ...options,
     headers: {
       ...options.headers,
@@ -15,6 +25,7 @@ export async function apiFetch<T>(
   });
 
   if (!res.ok) {
+    console.error(res.statusText);
     throw new Error(`API error ${res.status}`);
   }
 

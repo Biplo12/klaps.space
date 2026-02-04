@@ -9,6 +9,7 @@ export interface IScreening {
   date: string;
   isDubbing: number;
   isSubtitled: number;
+  cityName?: string;
 }
 
 export interface IScreeningWithMovie {

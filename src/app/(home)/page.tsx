@@ -1,12 +1,12 @@
-import Image from "next/image";
+import { getScreenings } from "@/lib/screenings";
 import Hero from "./_components/hero";
-import ScreeningsList from "./_components/screenings";
 
-export default function Home() {
+export default async function Home() {
+  const screenings = await getScreenings();
+
   return (
     <>
-      <Hero />
-      <ScreeningsList />
+      <Hero screenings={screenings} />
     </>
   );
 }
