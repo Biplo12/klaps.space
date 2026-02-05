@@ -7,6 +7,11 @@ export default async function Home() {
   return (
     <>
       <Hero screenings={screenings} />
+      <section
+        id="seanse"
+        className="min-h-screen bg-black"
+        aria-label="Seanse"
+      />
     </>
   );
 }

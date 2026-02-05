@@ -18,10 +18,11 @@ const Hero: React.FC<HeroProps> = async ({ screenings }) => {
 
       <Image
         src={randomScreening.movie.backdropUrl ?? ""}
-        alt="Hero"
+        alt=""
         width={1920}
         height={1080}
         className="w-full h-full object-cover max-w-6xl mx-auto absolute right-0 top-0"
+        role="presentation"
       />
 
       {/* <ScreeningsCallendar

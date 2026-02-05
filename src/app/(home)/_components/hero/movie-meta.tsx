@@ -1,6 +1,8 @@
 import React from "react";
 import { formatDuration } from "@/lib/utils";
 
+const META_SEPARATOR = " · ";
+
 type MovieMetaProps = {
   duration: number;
   productionYear: number;
@@ -12,21 +14,19 @@ const MovieMeta: React.FC<MovieMetaProps> = ({
   productionYear,
   formattedGenres,
 }) => {
+  const durationText = formatDuration(duration);
+
   return (
-    <div className="flex gap-4" role="list" aria-label="Movie details">
-      <span className="text-white text-2xl font-bold">
-        {formatDuration(duration)}
-      </span>
-      <span className="text-white text-2xl font-bold" aria-hidden="true">
-        |
-      </span>
-
-      <span className="text-white text-2xl font-bold">{productionYear}</span>
-
-      <span className="text-white text-2xl font-bold" aria-hidden="true">
-        |
-      </span>
-      <span className="text-white text-2xl font-bold">{formattedGenres}</span>
+    <div
+      className="flex flex-wrap items-baseline gap-x-1 text-white/90 text-xl font-light tracking-wide"
+      role="list"
+      aria-label="Szczegóły filmu"
+    >
+      <span className="font-medium text-white">{durationText}</span>
+      <span aria-hidden="true">{META_SEPARATOR}</span>
+      <span>{productionYear}</span>
+      <span aria-hidden="true">{META_SEPARATOR}</span>
+      <span>{formattedGenres}</span>
     </div>
   );
 };

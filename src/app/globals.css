@@ -58,6 +58,8 @@
   --color-golden-yellow: #ddb956;
   --color-blood-red: #dc1301;
   --color-dark-ink: #121212;
+  /* Jeden akcent kuratorski: CTA, aktywne elementy, hover */
+  --color-accent-film: var(--color-blood-red);
 }
 
 :root {
