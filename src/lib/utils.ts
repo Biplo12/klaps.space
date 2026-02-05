@@ -53,3 +53,37 @@ export const sortHoursChronologically = (hours: string[]) =>
     const [bH, bM] = b.split(":").map(Number);
     return aH * 60 + aM - (bH * 60 + bM);
   });
+
+export const getDateString = (date: Date) =>
+  date.toISOString().split("T")[0] ?? "";
+
+export const isToday = (dateStr: string) => {
+  const d = new Date(dateStr);
+  const today = new Date();
+  return getDateString(d) === getDateString(today);
+};
+
+export const isTomorrow = (dateStr: string) => {
+  const d = new Date(dateStr);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return getDateString(d) === getDateString(tomorrow);
+};
+
+export const formatDateLabel = (dateStr: string) => {
+  if (isToday(dateStr)) return "Dziś";
+  if (isTomorrow(dateStr)) return "Jutro";
+  const d = new Date(dateStr);
+  const dayNames = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "So"];
+  const day = dayNames[d.getDay()];
+  const date = d.toLocaleDateString("pl-PL", {
+    day: "2-digit",
+    month: "2-digit",
+  });
+  return `${day} ${date}`;
+};
+
+export const truncateText = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trim() + "…";
+};

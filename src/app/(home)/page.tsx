@@ -1,17 +1,18 @@
 import { getScreenings } from "@/lib/screenings";
+import { getCities } from "@/lib/cities";
 import Hero from "./_components/hero";
+import ScreeningsSection from "./_components/screenings-section";
 
 export default async function Home() {
-  const screenings = await getScreenings();
+  const [screenings, cities] = await Promise.all([
+    getScreenings(),
+    getCities(),
+  ]);
 
   return (
     <>
       <Hero screenings={screenings} />
-      <section
-        id="seanse"
-        className="min-h-screen bg-black"
-        aria-label="Seanse"
-      />
+      <ScreeningsSection screenings={screenings} cities={cities} />
     </>
   );
 }

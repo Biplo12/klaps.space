@@ -21,13 +21,16 @@ const badgeVariants = cva(
 
 interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof badgeVariants> {}
+    VariantProps<typeof badgeVariants> {
+  suffix?: string;
+}
 
 const Badge: React.FC<BadgeProps> = ({
   className,
   variant = "default",
   children,
   "aria-label": ariaLabel,
+  suffix,
   ...props
 }) => {
   const resolvedAriaLabel =
@@ -35,11 +38,19 @@ const Badge: React.FC<BadgeProps> = ({
 
   return (
     <span
-      className={cn(badgeVariants({ variant, className }))}
+      className={cn(
+        badgeVariants({ variant, className }),
+        "flex flex-col gap-1 items-start"
+      )}
       aria-label={resolvedAriaLabel}
       {...props}
     >
       {children}
+      {suffix && (
+        <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] text-[#B3B3B3]">
+          {suffix}
+        </span>
+      )}
     </span>
   );
 };

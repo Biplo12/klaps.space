@@ -8,12 +8,14 @@ interface MoviePosterProps {
   posterUrl: string;
   width: number;
   height: number;
+  className?: string;
 }
 
 const MoviePoster: React.FC<MoviePosterProps> = ({
   posterUrl,
   width,
   height,
+  className,
 }) => {
   const [isError, setIsError] = useState(false);
   return !isError ? (
@@ -22,7 +24,8 @@ const MoviePoster: React.FC<MoviePosterProps> = ({
       alt={posterUrl}
       width={width}
       height={height}
-      onError={(e) => {
+      className={className}
+      onError={() => {
         setIsError(true);
       }}
     />
