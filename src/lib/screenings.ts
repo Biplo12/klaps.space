@@ -2,9 +2,9 @@ import { IScreeningWithMovie } from "@/interfaces/IScreenings";
 import { apiFetch } from "./client";
 
 interface GetScreeningsParams {
-  date?: string;
-  cityId?: number;
-  limit?: number;
+  cityId?: string | null;
+  genreId?: string | null;
+  date?: string | null;
 }
 
 export const getScreenings = async (
@@ -12,9 +12,9 @@ export const getScreenings = async (
 ): Promise<IScreeningWithMovie[]> => {
   const screenings = await apiFetch<IScreeningWithMovie[]>("/screenings", {
     params: {
+      cityId: params.cityId ?? "",
+      genreId: params.genreId ?? "",
       date: params.date ?? "",
-      cityId: params.cityId?.toString() ?? "",
-      limit: params.limit?.toString() ?? "",
     },
   });
 

@@ -14,10 +14,11 @@ export const useGenreParam = (): UseGenreParamReturn => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const initialGenreId = searchParams.get(GENRE_PARAM_KEY) ?? "";
-  const [selectedGenreId, setSelectedGenreId] = useState(initialGenreId);
+  const [selectedGenreId, setSelectedGenreId] = useState(
+    searchParams.get(GENRE_PARAM_KEY) ?? ""
+  );
 
-  // Sync state with URL on initial load or external URL changes
+  // Sync state with URL on external URL changes
   useEffect(() => {
     const urlGenreId = searchParams.get(GENRE_PARAM_KEY) ?? "";
     setSelectedGenreId(urlGenreId);
@@ -25,7 +26,8 @@ export const useGenreParam = (): UseGenreParamReturn => {
 
   const handleGenreChange = useCallback(
     (value: string | null) => {
-      setSelectedGenreId(value ?? "");
+      const newValue = value ?? "";
+      setSelectedGenreId(newValue);
 
       const params = new URLSearchParams(searchParams.toString());
 
@@ -38,7 +40,7 @@ export const useGenreParam = (): UseGenreParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      // Update URL without triggering navigation/rerender
+      // Update URL without page reload
       window.history.replaceState(null, "", newUrl);
     },
     [searchParams, pathname]

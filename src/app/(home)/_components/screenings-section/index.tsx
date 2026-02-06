@@ -1,21 +1,33 @@
 import React from "react";
-import { IScreeningWithMovie } from "@/interfaces/IScreenings";
-import { ICity } from "@/interfaces/ICities";
 import ScreeningsSectionContent from "./screenings-section-content";
+import { getScreenings } from "@/lib/screenings";
+import { getCities } from "@/lib/cities";
 
 interface ScreeningsSectionProps {
-  screenings: IScreeningWithMovie[];
-  cities: ICity[];
+  searchParams?: {
+    city?: string;
+    genre?: string;
+    date?: string;
+  };
 }
 
-const ScreeningsSection: React.FC<ScreeningsSectionProps> = ({
-  screenings,
-  cities,
-}) => {
+const ScreeningsSection = async ({ searchParams }: ScreeningsSectionProps) => {
+  const [screenings, cities] = await Promise.all([
+    getScreenings({
+      cityId: searchParams?.city,
+      genreId: searchParams?.genre,
+      date: searchParams?.date,
+    }),
+    getCities(),
+  ]);
+
   return (
     <section id="seanse" className="bg-black px-8 py-16">
       <div className="max-w-[1400px] mx-auto">
-        <ScreeningsSectionContent screenings={screenings} cities={cities} />
+        <ScreeningsSectionContent
+          initialScreenings={screenings}
+          cities={cities}
+        />
       </div>
     </section>
   );

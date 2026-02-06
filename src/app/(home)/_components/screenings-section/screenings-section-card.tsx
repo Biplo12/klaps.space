@@ -1,14 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { IScreeningWithMovie } from "@/interfaces/IScreenings";
-import {
-  formatGeneres,
-  getDateString,
-  getHoursFromScreenings,
-} from "@/lib/utils";
+import { formatGeneres, getDateString } from "@/lib/utils";
 import MoviePoster from "@/components/common/movie-poster";
 import MovieMeta from "../hero/movie-meta";
-import { Button } from "@/components/ui/button";
+import ScreeningHours from "./screening-hours";
 
 interface ScreeningsSectionCardProps {
   screening: IScreeningWithMovie;
@@ -25,6 +21,7 @@ const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
   const desc = screening.movie.description?.trim() ?? "";
   const titleId = `screening-card-title-${screening.movie.id}`;
 
+  // Filter screenings by date only (city is already filtered server-side)
   const screeningsOnDate = screening.screenings.filter(
     (s) => getDateString(new Date(s.date)) === selectedDate
   );
@@ -65,24 +62,10 @@ const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
 
         <p className="text-sm text-white/70 italic line-clamp-2">{desc}</p>
 
-        {screeningsOnDate.length > 0 && (
-          <div
-            className={`flex flex-wrap gap-2 mt-2 ${
-              !selectedCityId ? "sr-only" : ""
-            }`}
-          >
-            {screeningsOnDate.map((s) => (
-              <Button key={s.id} variant="secondary" size="sm" asChild>
-                <Link
-                  href={s.url}
-                  aria-label={`Seans o ${getHoursFromScreenings([s])[0]}`}
-                >
-                  {getHoursFromScreenings([s])[0]}
-                </Link>
-              </Button>
-            ))}
-          </div>
-        )}
+        <ScreeningHours
+          screenings={screeningsOnDate}
+          isVisible={Boolean(selectedCityId)}
+        />
       </div>
     </article>
   );

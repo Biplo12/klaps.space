@@ -2,13 +2,8 @@ import React from "react";
 import Image from "next/image";
 import HeroContent from "./hero-content";
 import { getRandomScreening } from "@/lib/screenings";
-import { IScreeningWithMovie } from "@/interfaces/IScreenings";
 
-interface HeroProps {
-  screenings: IScreeningWithMovie[];
-}
-
-const Hero: React.FC<HeroProps> = async ({ screenings }) => {
+const Hero: React.FC = async () => {
   const randomScreening = await getRandomScreening();
   const movieTitle = randomScreening.movie.title;
 

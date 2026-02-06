@@ -14,10 +14,11 @@ export const useCityParam = (): UseCityParamReturn => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const initialCityId = searchParams.get(CITY_PARAM_KEY) ?? "";
-  const [selectedCityId, setSelectedCityId] = useState(initialCityId);
+  const [selectedCityId, setSelectedCityId] = useState(
+    searchParams.get(CITY_PARAM_KEY) ?? ""
+  );
 
-  // Sync state with URL on initial load or external URL changes
+  // Sync state with URL on external URL changes
   useEffect(() => {
     const urlCityId = searchParams.get(CITY_PARAM_KEY) ?? "";
     setSelectedCityId(urlCityId);
@@ -25,7 +26,8 @@ export const useCityParam = (): UseCityParamReturn => {
 
   const handleCityChange = useCallback(
     (value: string | null) => {
-      setSelectedCityId(value ?? "");
+      const newValue = value ?? "";
+      setSelectedCityId(newValue);
 
       const params = new URLSearchParams(searchParams.toString());
 
@@ -38,7 +40,7 @@ export const useCityParam = (): UseCityParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      // Update URL without triggering navigation/rerender
+      // Update URL without page reload
       window.history.replaceState(null, "", newUrl);
     },
     [searchParams, pathname]
