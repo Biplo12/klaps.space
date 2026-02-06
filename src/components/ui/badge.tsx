@@ -45,9 +45,11 @@ const Badge: React.FC<BadgeProps> = ({
       aria-label={resolvedAriaLabel}
       {...props}
     >
-      {children}
+      <span className="text-[14px] uppercase font-semibold tracking-[0.3em]">
+        {children}
+      </span>
       {suffix && (
-        <span className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] text-[#B3B3B3]">
+        <span className="text-[12px] uppercase tracking-[0.3em] text-[#B3B3B3]">
           {suffix}
         </span>
       )}

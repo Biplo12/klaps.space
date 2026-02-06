@@ -108,6 +108,9 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  [data-slot="button"] {
+    @apply outline-none border-0;
+  }
 }
 
 .limelight-regular {

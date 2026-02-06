@@ -1,62 +1,53 @@
 "use client";
 
 import React from "react";
+import { Button } from "@/components/ui/button";
+import { useGenreParam } from "@/hooks/use-genre-param";
+import type { GenreOption } from "@/hooks/use-screening-genres";
 import { cn } from "@/lib/utils";
 
-export interface GenreOption {
-  id: number;
-  name: string;
-}
+export type { GenreOption };
 
 interface ScreeningsGenreTagsProps {
   genres: GenreOption[];
-  selectedGenreId: number | null;
-  onGenreChange: (genreId: number | null) => void;
   className?: string;
 }
 
 const ScreeningsGenreTags: React.FC<ScreeningsGenreTagsProps> = ({
   genres,
-  selectedGenreId,
-  onGenreChange,
   className,
 }) => {
+  const { selectedGenreId, handleGenreChange } = useGenreParam();
+
   if (genres.length === 0) return null;
 
+  const allGenres = [{ id: null, name: "Wszystkie" }, ...genres];
+
+  const isGenreSelected = (genreId: number | null) => {
+    return genreId === null
+      ? selectedGenreId === ""
+      : selectedGenreId === genreId.toString();
+  };
+
+  const handleGenreClick = (genreId: number | null) => {
+    if (isGenreSelected(genreId)) return;
+    handleGenreChange(genreId?.toString() ?? null);
+  };
+
   return (
-    <div
-      className={cn("flex flex-wrap gap-2", className)}
-      role="group"
-      aria-label="Filtruj według gatunku"
-    >
-      <button
-        type="button"
-        onClick={() => onGenreChange(null)}
-        className={cn(
-          "px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition-colors focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red focus-visible:ring-offset-2 focus-visible:ring-offset-black",
-          selectedGenreId === null
-            ? "bg-white/10 text-white border border-white/50"
-            : "bg-transparent text-[#B3B3B3] border border-white/20 hover:border-white/40 hover:text-white"
-        )}
-      >
-        Wszystkie
-      </button>
-      {genres.map((genre) => {
-        const isSelected = selectedGenreId === genre.id;
+    <div className={cn("flex flex-wrap gap-2", className)}>
+      {allGenres.map((genre) => {
+        const selected = isGenreSelected(genre.id);
+
         return (
-          <button
-            key={genre.id}
-            type="button"
-            onClick={() => onGenreChange(isSelected ? null : genre.id)}
-            className={cn(
-              "px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition-colors focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red focus-visible:ring-offset-2 focus-visible:ring-offset-black",
-              isSelected
-                ? "bg-white/10 text-white border border-white/50"
-                : "bg-transparent text-[#B3B3B3] border border-white/20 hover:border-white/40 hover:text-white"
-            )}
+          <Button
+            key={genre.id ?? "all"}
+            size="sm"
+            variant={selected ? "tag-active" : "tag"}
+            onClick={() => handleGenreClick(genre.id)}
           >
             {genre.name}
-          </button>
+          </Button>
         );
       })}
     </div>

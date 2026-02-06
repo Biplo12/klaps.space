@@ -2,7 +2,8 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { useHeaderScroll, useMobileMenu } from "@/hooks";
+import { useHeaderScroll } from "@/hooks/use-header-scroll";
+import { useMobileMenu } from "@/hooks/use-mobile-menu";
 import Logo from "@/components/common/logo";
 import DesktopNav from "./desktop-nav";
 import MobileMenuButton from "./mobile-menu-button";

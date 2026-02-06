@@ -1,9 +1,10 @@
 import React from "react";
 import { IScreeningWithMovie } from "@/interfaces/IScreenings";
 import { cn, formatGeneres, getTitleSizeClasses } from "@/lib/utils";
-import { HeroPrimaryCTA, HeroSecondaryCTA } from "@/components/cta";
 import MovieMeta from "./movie-meta";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface HeroContentProps {
   screening: IScreeningWithMovie;
@@ -23,7 +24,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ screening }) => {
 
   return (
     <div className="z-10 absolute bottom-8 left-4 right-4 md:bottom-auto md:top-1/2 md:left-8 md:right-auto md:-translate-y-1/2 flex flex-col gap-2 md:gap-4">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <Badge variant="label" suffix={HERO_LABEL_SUB}>
           {HERO_LABEL_MAIN}
         </Badge>
@@ -52,12 +53,13 @@ const HeroContent: React.FC<HeroContentProps> = ({ screening }) => {
         </p>
 
         <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">
-          <HeroPrimaryCTA href={SCREENINGS_SECTION_ID}>
-            {CTA_PRIMARY}
-          </HeroPrimaryCTA>
-          <HeroSecondaryCTA href={movieDetailsHref}>
-            {CTA_SECONDARY}
-          </HeroSecondaryCTA>
+          <Button asChild variant="primary" size="xl">
+            <Link href={SCREENINGS_SECTION_ID}>{CTA_PRIMARY}</Link>
+          </Button>
+
+          <Button asChild variant="secondary" size="xl">
+            <Link href={movieDetailsHref}>{CTA_SECONDARY}</Link>
+          </Button>
         </div>
 
         <p className="text-xs md:text-sm italic text-[#B3B3B3] max-w-[500px] pt-2 md:pt-4 hidden sm:block">
