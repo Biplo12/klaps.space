@@ -4,7 +4,8 @@ import { apiFetch } from "./client";
 interface GetScreeningsParams {
   cityId?: string | null;
   genreId?: string | null;
-  date?: string | null;
+  dateFrom?: string | null;
+  dateTo?: string | null;
   limit?: number;
 }
 
@@ -15,7 +16,7 @@ export const getScreenings = async (
     params: {
       cityId: params.cityId ?? "",
       genreId: params.genreId ?? "",
-      date: params.date ?? "",
+      date: params.dateFrom ?? "",
       limit: params.limit?.toString() ?? "10",
     },
   });

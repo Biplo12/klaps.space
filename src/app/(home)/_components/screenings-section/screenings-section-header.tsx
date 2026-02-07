@@ -7,16 +7,17 @@ import CitySelect from "../../../../components/common/city-select";
 import ScreeningsDatePicker from "./screenings-date-picker";
 import ScreeningsGenreTags from "./screenings-genre-tags";
 import { Badge } from "@/components/ui/badge";
+import { IScreeningWithMovie } from "@/interfaces/IScreenings";
 
 interface ScreeningsSectionHeaderProps {
+  screenings: IScreeningWithMovie[];
   cities: ICity[];
-  dates: string[];
   genres: GenreOption[];
 }
 
 const ScreeningsSectionHeader: React.FC<ScreeningsSectionHeaderProps> = ({
+  screenings,
   cities,
-  dates,
   genres,
 }) => {
   return (
@@ -28,12 +29,12 @@ const ScreeningsSectionHeader: React.FC<ScreeningsSectionHeaderProps> = ({
         <CitySelect cities={cities} />
       </div>
 
-      {dates.length > 0 && (
+      {screenings.length > 0 && (
         <div className="flex flex-col gap-3">
           <span className="text-sm uppercase tracking-wider text-white/50">
             Data
           </span>
-          <ScreeningsDatePicker dates={dates} />
+          <ScreeningsDatePicker screenings={screenings} />
         </div>
       )}
 

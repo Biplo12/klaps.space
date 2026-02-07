@@ -7,16 +7,20 @@ interface ScreeningsSectionProps {
   searchParams?: {
     city?: string;
     genre?: string;
-    date?: string;
+    dateFrom?: string;
+    dateTo?: string;
   };
 }
 
 const ScreeningsSection = async ({ searchParams }: ScreeningsSectionProps) => {
+  const params = await searchParams;
+
   const [screenings, cities] = await Promise.all([
     getScreenings({
       cityId: searchParams?.city,
-      genreId: searchParams?.genre,
-      date: searchParams?.date,
+      genreId: params?.genre,
+      dateFrom: params?.dateFrom,
+      dateTo: params?.dateTo,
       limit: 30,
     }),
     getCities(),
@@ -25,10 +29,7 @@ const ScreeningsSection = async ({ searchParams }: ScreeningsSectionProps) => {
   return (
     <section id="seanse" className="bg-black px-8 py-16 min-h-screen">
       <div className="max-w-[1400px] mx-auto">
-        <ScreeningsSectionContent
-          initialScreenings={screenings}
-          cities={cities}
-        />
+        <ScreeningsSectionContent screenings={screenings} cities={cities} />
       </div>
     </section>
   );

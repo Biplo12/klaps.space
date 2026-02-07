@@ -24,6 +24,12 @@ export const formatDuration = (duration: number) => {
   return `${hours}h ${minutes}m`;
 };
 
+export const createDateByDaysIncrement = (days: number) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return getDateString(date);
+};
+
 export const getTodayDatePL = () =>
   new Date().toLocaleDateString("pl-PL", {
     day: "2-digit",

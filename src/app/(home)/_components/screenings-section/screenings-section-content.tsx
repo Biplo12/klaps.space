@@ -10,25 +10,29 @@ import ScreeningsSectionHeader from "./screenings-section-header";
 import ScreeningsSectionList from "./screenings-section-list";
 
 interface ScreeningsSectionContentProps {
-  initialScreenings: IScreeningWithMovie[];
+  screenings: IScreeningWithMovie[];
   cities: ICity[];
 }
 
 const ScreeningsSectionContent: React.FC<ScreeningsSectionContentProps> = ({
-  initialScreenings,
+  screenings,
   cities,
 }) => {
   const { selectedCityId } = useCityParam();
 
-  const { dates, activeDate } = useScreeningDates(initialScreenings);
-  const { genres } = useScreeningGenres(initialScreenings);
+  const { dates, activeDate } = useScreeningDates(screenings);
+  const { genres } = useScreeningGenres(screenings);
 
   return (
     <div className="flex flex-col gap-10">
-      <ScreeningsSectionHeader cities={cities} dates={dates} genres={genres} />
+      <ScreeningsSectionHeader
+        screenings={screenings}
+        cities={cities}
+        genres={genres}
+      />
 
       <ScreeningsSectionList
-        screenings={initialScreenings}
+        screenings={screenings}
         selectedDate={activeDate}
         selectedCityId={selectedCityId}
       />
