@@ -10,6 +10,7 @@ const CITY_PARAM_KEY = "city";
 interface UseCityParamReturn {
   selectedCity: ICity | null;
   handleCityChange: (value: number | null) => void;
+  options: { id: number | null; name: string }[];
 }
 
 export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
@@ -34,6 +35,7 @@ export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
 
   const handleCityChange = useCallback(
     (value: number | null) => {
+      console.log({ value });
       const params = new URLSearchParams(searchParams.toString());
 
       if (!value) {
@@ -53,5 +55,6 @@ export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
   return {
     selectedCity,
     handleCityChange,
+    options,
   };
 };

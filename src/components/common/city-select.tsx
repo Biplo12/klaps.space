@@ -17,11 +17,11 @@ interface CitySelectProps {
 }
 
 const CitySelect: React.FC<CitySelectProps> = ({ cities }) => {
-  const { selectedCity, handleCityChange } = useCityParam(cities);
+  const { selectedCity, handleCityChange, options } = useCityParam(cities);
 
   return (
     <Combobox
-      items={cities}
+      items={options}
       value={selectedCity?.id}
       onValueChange={handleCityChange}
     >
@@ -29,9 +29,9 @@ const CitySelect: React.FC<CitySelectProps> = ({ cities }) => {
 
       <ComboboxContent>
         <ComboboxList>
-          {cities?.map((city, index) => (
-            <ComboboxItem key={index} value={city.id}>
-              {city.name}
+          {options?.map((option, index) => (
+            <ComboboxItem key={index} value={option.id}>
+              {option.name}
             </ComboboxItem>
           ))}
 
