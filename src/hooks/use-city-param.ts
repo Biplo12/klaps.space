@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { ICity } from "@/interfaces/ICities";
 
 export type CityOption = { value: number | null; label: string };
@@ -22,6 +22,7 @@ interface UseCityParamReturn {
 export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const options = useMemo<CityOption[]>(
     () => [
@@ -52,13 +53,13 @@ export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl, { scroll: false });
 
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
     },
-    [searchParams, pathname]
+    [searchParams, pathname, router]
   );
 
   return {

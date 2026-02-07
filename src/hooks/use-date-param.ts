@@ -23,6 +23,7 @@ interface UseDateParamReturn {
 export const useDateParam = (): UseDateParamReturn => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const todayString = new Date().toISOString().split("T")[0];
 
@@ -51,9 +52,9 @@ export const useDateParam = (): UseDateParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl, { scroll: false });
     },
-    [searchParams, pathname]
+    [searchParams, pathname, router]
   );
 
   return { dateFrom, dateTo, daysOptions: daysRange, handleDateChange };

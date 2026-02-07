@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import type { GenreOption } from "@/hooks/use-screening-genres";
 
@@ -21,6 +21,7 @@ interface UseGenreParamReturn {
 export const useGenreParam = (genres: GenreOption[]): UseGenreParamReturn => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const router = useRouter();
 
   const options = useMemo<GenreRadioOption[]>(
     () => [
@@ -47,9 +48,9 @@ export const useGenreParam = (genres: GenreOption[]): UseGenreParamReturn => {
       }
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl, { scroll: false });
     },
-    [searchParams, pathname]
+    [searchParams, pathname, router]
   );
 
   return {
