@@ -8,6 +8,7 @@ import {
   ComboboxContent,
   ComboboxList,
   ComboboxItem,
+  ComboboxEmpty,
 } from "@/components/ui/combobox";
 import { useCityParam } from "@/hooks/use-city-param";
 
@@ -20,31 +21,21 @@ const CitySelect: React.FC<CitySelectProps> = ({ cities }) => {
 
   return (
     <Combobox
-      value={selectedCity?.id?.toString() ?? ""}
-      onValueChange={(value) => handleCityChange(value?.toString() ?? "")}
+      items={cities}
+      value={selectedCity?.id}
+      onValueChange={handleCityChange}
     >
-      <ComboboxInput
-        placeholder="Wybierz miasto"
-        showTrigger
-        value={selectedCity?.name ?? ""}
-      />
+      <ComboboxInput placeholder="Wybierz miasto" showTrigger showClear />
+
       <ComboboxContent>
         <ComboboxList>
-          {cities.length > 0 &&
-            cities.map((city) => (
-              <ComboboxItem
-                key={city.id ?? "all"}
-                value={city.id?.toString() ?? ""}
-              >
-                {city.name}
-              </ComboboxItem>
-            ))}
+          {cities?.map((city, index) => (
+            <ComboboxItem key={index} value={city.id}>
+              {city.name}
+            </ComboboxItem>
+          ))}
 
-          {cities.length === 0 && (
-            <p className="text-white/50 py-4 text-center text-sm italic">
-              Nie znaleziono miasta
-            </p>
-          )}
+          <ComboboxEmpty>Nie znaleziono miasta</ComboboxEmpty>
         </ComboboxList>
       </ComboboxContent>
     </Combobox>

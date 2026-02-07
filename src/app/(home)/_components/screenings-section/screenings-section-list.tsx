@@ -2,15 +2,18 @@ import React from "react";
 import EmptyState from "@/components/common/empty-state";
 import { IScreeningWithMovie } from "@/interfaces/IScreenings";
 import ScreeningsSectionCard from "./screenings-section-card";
+import { ICity } from "@/interfaces/ICities";
 
 interface ScreeningsSectionListProps {
   screenings: IScreeningWithMovie[];
   selectedDate: string;
+  selectedCity: ICity | null;
 }
 
 const ScreeningsSectionList: React.FC<ScreeningsSectionListProps> = ({
   screenings,
   selectedDate,
+  selectedCity,
 }) => {
   if (screenings.length === 0) {
     return <EmptyState />;
@@ -23,6 +26,7 @@ const ScreeningsSectionList: React.FC<ScreeningsSectionListProps> = ({
           <ScreeningsSectionCard
             screening={screening}
             selectedDate={selectedDate}
+            selectedCity={selectedCity}
           />
         </li>
       ))}

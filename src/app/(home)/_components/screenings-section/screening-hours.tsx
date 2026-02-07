@@ -3,7 +3,6 @@ import Link from "next/link";
 import { IScreening } from "@/interfaces/IScreenings";
 import { getHoursFromScreenings, sortHoursChronologically } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface ScreeningHoursProps {
   screenings: IScreening[];
@@ -21,15 +20,10 @@ const ScreeningHours: React.FC<ScreeningHoursProps> = ({ screenings }) => {
     return sorted[0] === timeA ? -1 : 1;
   });
 
-  const hasDuplicateCinemas =
-    new Set(sortedScreenings.map((s) => s.cinemaId)).size > 1;
-
   return (
     <div className="flex flex-wrap gap-2 mt-2">
       {sortedScreenings.map((screening) => {
         const time = getHoursFromScreenings([screening])[0];
-        const cinemaLabel =
-          screening.cinemaName ?? `Kino #${screening.cinemaId}`;
 
         return (
           <Button key={screening.id} variant="secondary" size="sm" asChild>
@@ -37,10 +31,6 @@ const ScreeningHours: React.FC<ScreeningHoursProps> = ({ screenings }) => {
               href={screening.url}
               target="_blank"
               rel="noopener noreferrer"
-              title={hasDuplicateCinemas ? cinemaLabel : undefined}
-              aria-label={`${time}${
-                hasDuplicateCinemas ? ` – ${cinemaLabel}` : ""
-              }`}
             >
               {time}
             </Link>

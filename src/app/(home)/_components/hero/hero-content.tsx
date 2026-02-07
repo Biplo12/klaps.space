@@ -48,7 +48,7 @@ const HeroContent: React.FC<HeroContentProps> = ({ screening }) => {
           formattedGenres={formattedGenres}
         />
 
-        <p className="text-base md:text-xl lg:text-2xl text-white font-light italic max-w-[650px] line-clamp-3 md:line-clamp-none">
+        <p className="text-base md:text-xl lg:text-2xl text-white font-light italic max-w-[650px] line-clamp-3">
           {screening.movie.description}
         </p>
 

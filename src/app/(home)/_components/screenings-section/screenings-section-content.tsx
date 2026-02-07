@@ -20,6 +20,7 @@ const ScreeningsSectionContent: React.FC<ScreeningsSectionContentProps> = ({
 }) => {
   const { dates, activeDate } = useScreeningDates(screenings);
   const { genres } = useScreeningGenres(screenings);
+  const { selectedCity } = useCityParam(cities);
 
   return (
     <div className="flex flex-col gap-10">
@@ -32,6 +33,7 @@ const ScreeningsSectionContent: React.FC<ScreeningsSectionContentProps> = ({
       <ScreeningsSectionList
         screenings={screenings}
         selectedDate={activeDate}
+        selectedCity={selectedCity}
       />
     </div>
   );

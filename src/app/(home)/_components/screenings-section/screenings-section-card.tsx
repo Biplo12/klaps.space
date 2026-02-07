@@ -5,15 +5,18 @@ import { formatGeneres, getDateString } from "@/lib/utils";
 import MoviePoster from "@/components/common/movie-poster";
 import MovieMeta from "../hero/movie-meta";
 import ScreeningHours from "./screening-hours";
+import { ICity } from "@/interfaces/ICities";
 
 interface ScreeningsSectionCardProps {
   screening: IScreeningWithMovie;
   selectedDate: string;
+  selectedCity: ICity | null;
 }
 
 const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
   screening,
   selectedDate,
+  selectedCity,
 }) => {
   const formattedGenres = formatGeneres(screening.movie.movies_genres);
   const desc = screening.movie.description?.trim() ?? "";
@@ -24,7 +27,7 @@ const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
   );
 
   return (
-    <article className="group flex flex-col" aria-labelledby={titleId}>
+    <article className="group flex flex-col">
       <div className="relative">
         <Link
           href={`/filmy/${screening.movie.id}`}
@@ -59,7 +62,7 @@ const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
 
         <p className="text-sm text-white/70 italic line-clamp-2">{desc}</p>
 
-        <ScreeningHours screenings={screeningsOnDate} />
+        {selectedCity && <ScreeningHours screenings={screeningsOnDate} />}
       </div>
     </article>
   );
