@@ -6,13 +6,11 @@ import ScreeningsSectionCard from "./screenings-section-card";
 interface ScreeningsSectionListProps {
   screenings: IScreeningWithMovie[];
   selectedDate: string;
-  selectedCityId: string;
 }
 
 const ScreeningsSectionList: React.FC<ScreeningsSectionListProps> = ({
   screenings,
   selectedDate,
-  selectedCityId,
 }) => {
   if (screenings.length === 0) {
     return <EmptyState />;
@@ -25,7 +23,6 @@ const ScreeningsSectionList: React.FC<ScreeningsSectionListProps> = ({
           <ScreeningsSectionCard
             screening={screening}
             selectedDate={selectedDate}
-            selectedCityId={selectedCityId}
           />
         </li>
       ))}

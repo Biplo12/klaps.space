@@ -18,8 +18,6 @@ const ScreeningsSectionContent: React.FC<ScreeningsSectionContentProps> = ({
   screenings,
   cities,
 }) => {
-  const { selectedCityId } = useCityParam();
-
   const { dates, activeDate } = useScreeningDates(screenings);
   const { genres } = useScreeningGenres(screenings);
 
@@ -34,7 +32,6 @@ const ScreeningsSectionContent: React.FC<ScreeningsSectionContentProps> = ({
       <ScreeningsSectionList
         screenings={screenings}
         selectedDate={activeDate}
-        selectedCityId={selectedCityId}
       />
     </div>
   );

@@ -1,34 +1,39 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { ICity } from "@/interfaces/ICities";
 
+const ALL_CITIES_OPTION = { id: null, name: "Wszystkie miasta" };
 const CITY_PARAM_KEY = "city";
 
 interface UseCityParamReturn {
-  selectedCityId: string;
+  selectedCity: ICity | null;
   handleCityChange: (value: string | null) => void;
 }
 
-export const useCityParam = (): UseCityParamReturn => {
-  const searchParams = useSearchParams();
+export const useCityParam = (cities: ICity[]): UseCityParamReturn => {
+  const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [selectedCityId, setSelectedCityId] = useState(
-    searchParams.get(CITY_PARAM_KEY) ?? ""
+  const options = useMemo(
+    () => [
+      ALL_CITIES_OPTION,
+      ...cities.map((c) => ({ id: c.id, name: c.name })),
+    ],
+    [cities]
   );
 
-  // Sync state with URL on external URL changes
-  useEffect(() => {
-    const urlCityId = searchParams.get(CITY_PARAM_KEY) ?? "";
-    setSelectedCityId(urlCityId);
-  }, [searchParams]);
+  const selectedCity = useMemo(() => {
+    const cityParam = searchParams.get(CITY_PARAM_KEY);
+    if (!cityParam) return null;
+
+    return cities.find((c) => c.id.toString() === cityParam) ?? null;
+  }, [cities, searchParams]);
 
   const handleCityChange = useCallback(
     (value: string | null) => {
-      const newValue = value ?? "";
-      setSelectedCityId(newValue);
-
       const params = new URLSearchParams(searchParams.toString());
 
       if (!value) {
@@ -40,14 +45,13 @@ export const useCityParam = (): UseCityParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      // Update URL without page reload
-      window.history.replaceState(null, "", newUrl);
+      router.replace(newUrl);
     },
-    [searchParams, pathname]
+    [searchParams, pathname, router]
   );
 
   return {
-    selectedCityId,
+    selectedCity,
     handleCityChange,
   };
 };

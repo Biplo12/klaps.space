@@ -9,19 +9,16 @@ import ScreeningHours from "./screening-hours";
 interface ScreeningsSectionCardProps {
   screening: IScreeningWithMovie;
   selectedDate: string;
-  selectedCityId: string;
 }
 
 const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
   screening,
   selectedDate,
-  selectedCityId,
 }) => {
   const formattedGenres = formatGeneres(screening.movie.movies_genres);
   const desc = screening.movie.description?.trim() ?? "";
   const titleId = `screening-card-title-${screening.movie.id}`;
 
-  // Filter screenings by date only (city is already filtered server-side)
   const screeningsOnDate = screening.screenings.filter(
     (s) => getDateString(new Date(s.date)) === selectedDate
   );
@@ -62,10 +59,7 @@ const ScreeningsSectionCard: React.FC<ScreeningsSectionCardProps> = ({
 
         <p className="text-sm text-white/70 italic line-clamp-2">{desc}</p>
 
-        <ScreeningHours
-          screenings={screeningsOnDate}
-          isVisible={Boolean(selectedCityId)}
-        />
+        <ScreeningHours screenings={screeningsOnDate} />
       </div>
     </article>
   );

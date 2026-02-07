@@ -7,13 +7,9 @@ import { cn } from "@/lib/utils";
 
 interface ScreeningHoursProps {
   screenings: IScreening[];
-  isVisible: boolean;
 }
 
-const ScreeningHours: React.FC<ScreeningHoursProps> = ({
-  screenings,
-  isVisible,
-}) => {
+const ScreeningHours: React.FC<ScreeningHoursProps> = ({ screenings }) => {
   if (screenings.length === 0) {
     return null;
   }
@@ -29,7 +25,7 @@ const ScreeningHours: React.FC<ScreeningHoursProps> = ({
     new Set(sortedScreenings.map((s) => s.cinemaId)).size > 1;
 
   return (
-    <div className={cn("flex flex-wrap gap-2 mt-2", !isVisible && "sr-only")}>
+    <div className="flex flex-wrap gap-2 mt-2">
       {sortedScreenings.map((screening) => {
         const time = getHoursFromScreenings([screening])[0];
         const cinemaLabel =
