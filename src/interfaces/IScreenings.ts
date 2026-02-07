@@ -6,6 +6,7 @@ export interface IScreening {
   movieId: number;
   showtimeId: number;
   cinemaId: number;
+  cinemaName?: string;
   date: string;
   isDubbing: number;
   isSubtitled: number;

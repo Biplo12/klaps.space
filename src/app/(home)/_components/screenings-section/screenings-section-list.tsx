@@ -15,7 +15,7 @@ const ScreeningsSectionList: React.FC<ScreeningsSectionListProps> = ({
   selectedCityId,
 }) => {
   if (screenings.length === 0) {
-    return <EmptyState message="Brak seansów do wyświetlenia." />;
+    return <EmptyState />;
   }
 
   return (

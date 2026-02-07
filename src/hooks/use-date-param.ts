@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 const DATE_PARAM_KEY = "date";
 
@@ -13,11 +13,12 @@ interface UseDateParamReturn {
 export const useDateParam = (defaultDate?: string): UseDateParamReturn => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const router = useRouter();
 
   const initialDate = searchParams.get(DATE_PARAM_KEY) ?? defaultDate ?? "";
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
-  // Set default date in URL on load if not present
+  // Sync state when searchParams change (e.g. after router.replace navigation)
   useEffect(() => {
     const urlDate = searchParams.get(DATE_PARAM_KEY);
 
@@ -26,7 +27,7 @@ export const useDateParam = (defaultDate?: string): UseDateParamReturn => {
     } else if (defaultDate) {
       setSelectedDate(defaultDate);
 
-      // Set default date in URL
+      // Set default date in URL silently (no server re-render needed)
       const params = new URLSearchParams(searchParams.toString());
       params.set(DATE_PARAM_KEY, defaultDate);
       const queryString = params.toString();
@@ -50,10 +51,10 @@ export const useDateParam = (defaultDate?: string): UseDateParamReturn => {
       const queryString = params.toString();
       const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
 
-      // Update URL without triggering navigation/rerender
-      window.history.replaceState(null, "", newUrl);
+      // Trigger Next.js navigation so the server component re-fetches with new date
+      router.replace(newUrl);
     },
-    [searchParams, pathname]
+    [searchParams, pathname, router]
   );
 
   return {

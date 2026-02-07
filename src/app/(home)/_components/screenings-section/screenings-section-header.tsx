@@ -28,19 +28,23 @@ const ScreeningsSectionHeader: React.FC<ScreeningsSectionHeaderProps> = ({
         <CitySelect cities={cities} />
       </div>
 
-      <div className="flex flex-col gap-3">
-        <span className="text-sm uppercase tracking-wider text-white/50">
-          Data
-        </span>
-        <ScreeningsDatePicker dates={dates} />
-      </div>
+      {dates.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <span className="text-sm uppercase tracking-wider text-white/50">
+            Data
+          </span>
+          <ScreeningsDatePicker dates={dates} />
+        </div>
+      )}
 
-      <div className="flex flex-col gap-3">
-        <span className="text-sm uppercase tracking-wider text-white/50">
-          Gatunek
-        </span>
-        <ScreeningsGenreTags genres={genres} />
-      </div>
+      {genres.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <span className="text-sm uppercase tracking-wider text-white/50">
+            Gatunek
+          </span>
+          <ScreeningsGenreTags genres={genres} />
+        </div>
+      )}
     </div>
   );
 };

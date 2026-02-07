@@ -39,8 +39,6 @@ const ScreeningsDatePicker: React.FC<ScreeningsDatePickerProps> = ({
             size="sm"
             variant={isSelected ? "tag-active" : "tag"}
             onClick={() => handleDateClick(dateStr)}
-            aria-pressed={isSelected}
-            aria-label={`Wybierz datę: ${formatDateLabel(dateStr)}`}
           >
             {formatDateLabel(dateStr)}
           </Button>

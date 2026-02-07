@@ -5,6 +5,7 @@ interface GetScreeningsParams {
   cityId?: string | null;
   genreId?: string | null;
   date?: string | null;
+  limit?: number;
 }
 
 export const getScreenings = async (
@@ -15,6 +16,7 @@ export const getScreenings = async (
       cityId: params.cityId ?? "",
       genreId: params.genreId ?? "",
       date: params.date ?? "",
+      limit: params.limit?.toString() ?? "10",
     },
   });
 
@@ -25,6 +27,7 @@ export const getRandomScreening = async (): Promise<IScreeningWithMovie> => {
   const screening = await apiFetch<IScreeningWithMovie>(
     "/screenings/random-screening"
   );
+
   if (!screening) {
     throw new Error("No screening found");
   }
