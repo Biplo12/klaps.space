@@ -29,10 +29,8 @@ const ScreeningsSectionContentInner: React.FC<
         "flex flex-col gap-10 transition-opacity duration-200",
         isPending && "opacity-50 pointer-events-none"
       )}
-      aria-busy={isPending}
     >
       <ScreeningsSectionHeader cities={cities} genres={genres} />
-
       <ScreeningsSectionList screenings={screenings} />
     </div>
   );
