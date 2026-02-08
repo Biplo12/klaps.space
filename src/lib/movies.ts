@@ -1,16 +1,17 @@
-import { IMovie } from "../interfaces/IMovies";
+import { IMultiCityMovie } from "@/interfaces/IMovies";
 import { apiFetch } from "./client";
 
-export const getMovies = async (): Promise<IMovie[]> => {
-  const movies = await apiFetch<IMovie[]>("/movies");
-  return movies;
-};
+interface GetMultiCityMoviesParams {
+  limit?: number;
+}
 
-export const getMovieById = async (id: string): Promise<IMovie | null> => {
-  try {
-    const movie = await apiFetch<IMovie>(`/movies/${id}`);
-    return movie;
-  } catch {
-    return null;
-  }
+export const getMultiCityMovies = async (
+  params: GetMultiCityMoviesParams = {}
+): Promise<IMultiCityMovie[]> => {
+  const movies = await apiFetch<IMultiCityMovie[]>("/movies/multi-city", {
+    params: {
+      limit: params.limit?.toString() ?? "10",
+    },
+  });
+  return movies;
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { ReadMoreLink } from "@/components/ui/read-more-link";
+import LinkWithArrow from "@/components/ui/read-more-link";
 
 const MissionContent: React.FC = () => {
   return (
@@ -23,11 +23,7 @@ const MissionContent: React.FC = () => {
         Jedno miejsce
       </Badge>
 
-      <ReadMoreLink
-        href="/o-projekcie"
-        label="Czytaj więcej"
-        ariaLabel="Przeczytaj pełny opis projektu Klatka"
-      />
+      <LinkWithArrow href="/o-projekcie" label="Czytaj więcej" />
     </>
   );
 };

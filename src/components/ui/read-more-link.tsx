@@ -3,17 +3,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type ReadMoreLinkProps = {
+type LinkWithArrowProps = {
   href: string;
   label: string;
-  ariaLabel?: string;
   className?: string;
 };
 
-const ReadMoreLink: React.FC<ReadMoreLinkProps> = ({
+const LinkWithArrow: React.FC<LinkWithArrowProps> = ({
   href,
   label,
-  ariaLabel,
   className,
 }) => {
   return (
@@ -23,8 +21,6 @@ const ReadMoreLink: React.FC<ReadMoreLinkProps> = ({
         "group inline-flex items-center gap-2 text-neutral-400 text-sm uppercase tracking-widest transition-colors duration-300 hover:text-blood-red focus-visible:text-blood-red focus-visible:outline-none",
         className
       )}
-      aria-label={ariaLabel ?? label}
-      tabIndex={0}
     >
       {label}
       <ArrowRight
@@ -35,4 +31,4 @@ const ReadMoreLink: React.FC<ReadMoreLinkProps> = ({
   );
 };
 
-export { ReadMoreLink };
+export default LinkWithArrow;

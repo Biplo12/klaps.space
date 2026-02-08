@@ -15,6 +15,14 @@ export interface IMovieGenre {
   genre: IGenre;
 }
 
+export interface IMultiCityMovie {
+  id: number;
+  title: string;
+  year: number;
+  citiesCount: number;
+  posterUrl: string | null;
+}
+
 export interface IMovie {
   id: number;
   filmwebId: number;

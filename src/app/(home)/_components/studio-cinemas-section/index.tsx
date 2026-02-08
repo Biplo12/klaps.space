@@ -1,6 +1,6 @@
 import React from "react";
 import StudioCinemasList from "./studio-cinemas-list";
-import { ReadMoreLink } from "@/components/ui/read-more-link";
+import LinkWithArrow from "@/components/ui/read-more-link";
 import { ICinema } from "@/interfaces/ICinema";
 import SectionHeader from "@/components/common/section-header";
 
@@ -21,11 +21,7 @@ const StudioCinemasSection: React.FC<StudioCinemasSectionProps> = ({
         />
         <StudioCinemasList cinemas={cinemas} />
 
-        <ReadMoreLink
-          href="/kina"
-          label="Zobacz wszystkie kina"
-          ariaLabel="Zobacz pełną listę kin studyjnych"
-        />
+        <LinkWithArrow href="/kina" label="Zobacz wszystkie kina" />
       </div>
     </section>
   );
