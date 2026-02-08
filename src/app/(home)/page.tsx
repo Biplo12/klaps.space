@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Suspense } from "react";
 import ScreeningsSection from "./_components/screenings-section";
 import ScreeningsSectionLoader from "./_components/screenings-section/screenings-section-loader";
@@ -13,7 +14,7 @@ interface HomeProps {
   searchParams: Promise<SearchParams>;
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+const HomePage = async ({ searchParams }: HomeProps) => {
   const params = await searchParams;
 
   return (
@@ -21,4 +22,12 @@ export default async function Home({ searchParams }: HomeProps) {
       <ScreeningsSection searchParams={params} />
     </Suspense>
   );
-}
+};
+
+export const metadata: Metadata = {
+  title: "Klatka - Repertuar seansów specjalnych i klasyki filmowej",
+  description:
+    "Ogólnopolski przewodnik po seansach specjalnych, klasyce i retrospektywach w kinach studyjnych. Sprawdź co grają.",
+};
+
+export default HomePage;

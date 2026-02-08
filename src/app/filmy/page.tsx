@@ -6,12 +6,6 @@ import MoviesPagination from "./_components/movies-pagination";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Filmy - Klatka",
-  description:
-    "Katalog filmów dostępnych w serwisie Klatka. Klasyka, retrospektywy i seanse specjalne w kinach studyjnych.",
-};
-
 type MoviesPageProps = {
   searchParams: Promise<{ page?: string }>;
 };
@@ -42,6 +36,12 @@ const MoviesPage = async ({ searchParams }: MoviesPageProps) => {
       </div>
     </main>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Filmy - Klatka",
+  description:
+    "Katalog filmów dostępnych w serwisie Klatka. Klasyka, retrospektywy i seanse specjalne w kinach studyjnych.",
 };
 
 export default MoviesPage;

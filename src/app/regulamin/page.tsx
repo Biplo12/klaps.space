@@ -2,12 +2,6 @@ import { Metadata } from "next";
 import TermsPageContent from "./_components/terms-page-content";
 import SectionHeader from "@/components/common/section-header";
 
-export const metadata: Metadata = {
-  title: "Regulamin — Klatka",
-  description:
-    "Regulamin korzystania z serwisu Klatka. Zasady, odpowiedzialność, prawa autorskie i dane kontaktowe.",
-};
-
 const TermsPage = () => {
   return (
     <main className="bg-black min-h-screen px-8 md:px-16 pt-28 pb-32 md:pb-40">
@@ -17,6 +11,12 @@ const TermsPage = () => {
       </div>
     </main>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Regulamin — Klatka",
+  description:
+    "Regulamin korzystania z serwisu Klatka. Zasady, odpowiedzialność, prawa autorskie i dane kontaktowe.",
 };
 
 export default TermsPage;

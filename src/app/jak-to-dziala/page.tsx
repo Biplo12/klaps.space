@@ -2,12 +2,6 @@ import { Metadata } from "next";
 import HowItWorksPageContent from "./_components/how-it-works-page-content";
 import SectionHeader from "@/components/common/section-header";
 
-export const metadata: Metadata = {
-  title: "Jak to działa — Klatka",
-  description:
-    "Dowiedz się skąd Klatka pobiera repertuar, jak filtruje seanse i jak korzystać z serwisu.",
-};
-
 const HowItWorksPage = () => {
   return (
     <main className="bg-black min-h-screen px-8 py-32">
@@ -17,6 +11,12 @@ const HowItWorksPage = () => {
       </div>
     </main>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Jak to działa — Klatka",
+  description:
+    "Dowiedz się skąd Klatka pobiera repertuar, jak filtruje seanse i jak korzystać z serwisu.",
 };
 
 export default HowItWorksPage;

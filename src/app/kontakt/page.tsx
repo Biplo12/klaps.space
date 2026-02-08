@@ -2,12 +2,6 @@ import { Metadata } from "next";
 import ContactPageContent from "./_components/contact-page-content";
 import SectionHeader from "@/components/common/section-header";
 
-export const metadata: Metadata = {
-  title: "Kontakt — Klatka",
-  description:
-    "Skontaktuj się z zespołem Klatki. Napisz w sprawie współpracy, zgłoś błąd lub podziel się opinią.",
-};
-
 const ContactPage = () => {
   return (
     <main className="bg-black min-h-screen px-8 md:px-16 pt-28 pb-32 md:pb-40">
@@ -17,6 +11,12 @@ const ContactPage = () => {
       </div>
     </main>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Kontakt — Klatka",
+  description:
+    "Skontaktuj się z zespołem Klatki. Napisz w sprawie współpracy, zgłoś błąd lub podziel się opinią.",
 };
 
 export default ContactPage;

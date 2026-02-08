@@ -5,13 +5,7 @@ import CinemasList from "./_components/cinemas-list";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Kina studyjne w Polsce — Klatka",
-  description:
-    "Pełna lista kin studyjnych w Polsce. Znajdź kino niezależne w swoim mieście.",
-};
-
-export default async function KinaPage() {
+const CinemasPage = async () => {
   const cinemas = await getCinemas({ limit: 200 });
 
   return (
@@ -26,4 +20,12 @@ export default async function KinaPage() {
       </div>
     </main>
   );
-}
+};
+
+export const metadata: Metadata = {
+  title: "Kina studyjne w Polsce — Klatka",
+  description:
+    "Pełna lista kin studyjnych w Polsce. Znajdź kino niezależne w swoim mieście.",
+};
+
+export default CinemasPage;
