@@ -16,7 +16,8 @@ const CinemasCityGroup: React.FC<CinemasCityGroupProps> = ({
       <h2 className="text-white text-xs md:text-sm font-bold uppercase tracking-widest leading-none mb-6">
         {cityName}
       </h2>
-      <ul className="divide-y divide-neutral-800" role="list">
+
+      <ul className="divide-y divide-neutral-800">
         {cinemas.map((cinema) => (
           <CinemaLinkItem key={cinema.id} cinema={cinema} />
         ))}

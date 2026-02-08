@@ -1,7 +1,7 @@
 import React from "react";
 
 interface SectionHeaderProps {
-  prefix: string;
+  prefix?: string;
   title: string;
   description?: string;
 }

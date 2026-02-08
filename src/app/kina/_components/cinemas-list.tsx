@@ -1,31 +1,11 @@
 import React from "react";
 import { ICinema } from "@/interfaces/ICinema";
 import CinemasCityGroup from "./cinemas-city-group";
+import { groupCinemasByCity } from "@/lib/cinemas";
 
 interface CinemasListProps {
   cinemas: ICinema[];
 }
-
-const groupCinemasByCity = (cinemas: ICinema[]) => {
-  const grouped = new Map<string, ICinema[]>();
-
-  for (const cinema of cinemas) {
-    const city = cinema.cityName;
-    const existing = grouped.get(city);
-
-    if (existing) {
-      existing.push(cinema);
-    } else {
-      grouped.set(city, [cinema]);
-    }
-  }
-
-  const sorted = new Map(
-    [...grouped.entries()].sort((a, b) => b[1].length - a[1].length)
-  );
-
-  return sorted;
-};
 
 const CinemasList: React.FC<CinemasListProps> = ({ cinemas }) => {
   const groupedCinemas = groupCinemasByCity(cinemas);

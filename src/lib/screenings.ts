@@ -3,6 +3,7 @@ import { apiFetch } from "./client";
 
 interface GetScreeningsParams {
   cityId?: string | null;
+  cinemaId?: string | null;
   genreId?: string | null;
   dateFrom?: string | null;
   dateTo?: string | null;
@@ -15,6 +16,7 @@ export const getScreenings = async (
   const screenings = await apiFetch<IScreeningWithMovie[]>("/screenings", {
     params: {
       cityId: params.cityId ?? "",
+      cinemaId: params.cinemaId ?? "",
       genreId: params.genreId ?? "",
       dateFrom: params.dateFrom ?? "",
       dateTo: params.dateTo ?? "",

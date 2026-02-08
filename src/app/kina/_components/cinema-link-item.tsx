@@ -9,11 +9,9 @@ const CinemaLinkItem: React.FC<CinemaLinkItemProps> = ({ cinema }) => {
   return (
     <li>
       <a
-        href={cinema.url}
+        href={`/kina/${cinema.id}`}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${cinema.name}, ${cinema.street}`}
-        tabIndex={0}
         className="group flex items-baseline justify-between gap-4 py-3 transition-colors duration-200 hover:text-red-800 focus-visible:text-red-800 focus-visible:outline-none"
       >
         <span className="text-neutral-300 text-base md:text-lg leading-snug group-hover:text-red-800 group-focus-visible:text-red-800 transition-colors duration-200">
