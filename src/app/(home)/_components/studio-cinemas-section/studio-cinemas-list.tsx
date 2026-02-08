@@ -8,7 +8,7 @@ interface StudioCinemasListProps {
 
 const StudioCinemasList: React.FC<StudioCinemasListProps> = ({ cinemas }) => {
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-4 gap-y-12 md:gap-y-14 md:gap-x-20">
+    <ul className="grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-14 md:gap-x-20">
       {cinemas.map((cinema) => (
         <StudioCinemaItem key={cinema.id} cinema={cinema} />
       ))}

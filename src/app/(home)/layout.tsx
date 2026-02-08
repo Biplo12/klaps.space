@@ -4,6 +4,8 @@ import StudioCinemasSection from "./_components/studio-cinemas-section";
 import SectionDivider from "@/components/ui/section-divider";
 import { getCinemas } from "@/lib/cinemas";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomeLayout({
   children,
 }: Readonly<{

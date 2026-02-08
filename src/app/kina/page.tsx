@@ -3,6 +3,8 @@ import { getCinemas } from "@/lib/cinemas";
 import CinemasPageHeader from "./_components/cinemas-page-header";
 import CinemasList from "./_components/cinemas-list";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Kina studyjne w Polsce — Klatka",
   description:
