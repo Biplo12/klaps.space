@@ -2,6 +2,7 @@ import React from "react";
 import ContentSection from "@/components/common/content-section";
 import ContactInfoItem from "./contact-info-item";
 import ContactSidebar from "./contact-sidebar";
+import { CONTACT_EMAIL } from "@/constants";
 
 const ContactPageContent: React.FC = () => {
   return (
@@ -19,8 +20,8 @@ const ContactPageContent: React.FC = () => {
         <div className="flex flex-col md:hidden">
           <ContactInfoItem
             label="E-mail"
-            value="kontakt@klatka.pl"
-            href="mailto:kontakt@klatka.pl"
+            value={CONTACT_EMAIL}
+            href={`mailto:${CONTACT_EMAIL}`}
           />
           <ContactInfoItem
             label="Czas odpowiedzi"

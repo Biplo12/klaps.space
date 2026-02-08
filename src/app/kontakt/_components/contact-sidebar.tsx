@@ -2,6 +2,7 @@ import React from "react";
 import { Separator } from "@/components/ui/separator";
 import ContactSidebarItem from "./contact-sidebar-item";
 import ContactSidebarNote from "./contact-sidebar-note";
+import { CONTACT_EMAIL } from "@/constants";
 
 const ContactSidebar: React.FC = () => {
   return (
@@ -9,10 +10,10 @@ const ContactSidebar: React.FC = () => {
       <div className="sticky top-28 flex flex-col gap-10">
         <ContactSidebarItem label="E-mail">
           <a
-            href="mailto:kontakt@klatka.pl"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="text-2xl text-white font-bold uppercase tracking-[0.04em] hover:text-blood-red transition-colors duration-300 leading-tight"
           >
-            kontakt@klatka.pl
+            {CONTACT_EMAIL}
           </a>
         </ContactSidebarItem>
 
