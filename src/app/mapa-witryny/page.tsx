@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const SitemapPage = async () => {
   const [{ data: cinemaGroups }, { data: movies }] = await Promise.all([
-    getCinemas({ limit: 200 }),
+    getCinemas({ limit: 500 }),
     getMovies({ limit: 1000 }),
   ]);
 

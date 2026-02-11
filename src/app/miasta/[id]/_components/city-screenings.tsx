@@ -15,12 +15,14 @@ const CityScreenings: React.FC<CityScreeningsProps> = ({ screenings }) => {
     <section className="flex flex-col gap-10">
       <SectionHeader prefix="Seanse w mieście" title="Aktualne seanse" />
 
-      {screenings?.length === 0 ? (
+      {screenings?.length === 0 && (
         <EmptyState
           headline="Brak seansów"
           description="Aktualnie nie ma zaplanowanych seansów w tym mieście."
         />
-      ) : (
+      )}
+
+      {screenings?.length > 0 && (
         <MoviesGrid
           movies={movies}
           screenings={screenings}

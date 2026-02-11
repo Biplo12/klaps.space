@@ -14,7 +14,7 @@ const FOOTER_NAV_GROUPS: FooterLinkGroup[] = [
       { href: "#seanse", label: "Seanse" },
       { href: "/filmy", label: "Filmy" },
       { href: "/kina", label: "Kina" },
-      { href: "/cities", label: "Miasta" },
+      { href: "/miasta", label: "Miasta" },
     ],
   },
   {
@@ -24,8 +24,8 @@ const FOOTER_NAV_GROUPS: FooterLinkGroup[] = [
       { href: "/jak-to-dziala", label: "Jak to działa" },
       { href: "/kontakt", label: "Kontakt" },
       { href: "/regulamin", label: "Regulamin" },
-      { href: "/sitemap", label: "Mapa witryny" },
-      { href: "/accessibility", label: "Dostępność" },
+      { href: "/mapa-witryny", label: "Mapa witryny" },
+      { href: "/dostepnosc", label: "Dostępność" },
     ],
   },
 ];

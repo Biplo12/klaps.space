@@ -1,6 +1,6 @@
 import React from "react";
 import { ICinemaSummary } from "@/interfaces/ICinema";
-import CinemaLinkItem from "./cinema-link-item";
+import CinemaListItem from "@/components/common/cinema-list-item";
 
 interface CinemasCityGroupProps {
   cityName: string;
@@ -19,7 +19,7 @@ const CinemasCityGroup: React.FC<CinemasCityGroupProps> = ({
 
       <ul className="divide-y divide-neutral-800">
         {cinemas.map((cinema) => (
-          <CinemaLinkItem key={cinema.id} cinema={cinema} />
+          <CinemaListItem key={cinema.id} cinema={cinema} />
         ))}
       </ul>
     </div>

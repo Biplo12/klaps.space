@@ -14,7 +14,7 @@ const CitiesList: React.FC<CitiesListProps> = ({ cinemaGroups }) => {
   }
 
   const sortedGroups = [...cinemaGroups].sort((a, b) =>
-    a.city.name.localeCompare(b.city.name, "pl"),
+    a.city.name.localeCompare(b.city.name, "pl")
   );
 
   const letterGroups = sortedGroups.reduce<Record<string, ICinemaGroup[]>>(
@@ -24,11 +24,11 @@ const CitiesList: React.FC<CitiesListProps> = ({ cinemaGroups }) => {
       acc[letter].push(group);
       return acc;
     },
-    {},
+    {}
   );
 
   const sortedLetters = Object.keys(letterGroups).sort((a, b) =>
-    a.localeCompare(b, "pl"),
+    a.localeCompare(b, "pl")
   );
 
   return (

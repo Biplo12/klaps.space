@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import { getCityById } from "@/lib/cities";
 import { getCinemas } from "@/lib/cinemas";
 import SectionDivider from "@/components/ui/section-divider";
-import CityHeader from "./_components/city-header";
 import CityStats from "./_components/city-stats";
 import CityCinemas from "./_components/city-cinemas";
 import CityScreenings from "./_components/city-screenings";
+import SectionHeader from "@/components/common/section-header";
 
 export const dynamic = "force-dynamic";
 
@@ -21,9 +21,8 @@ const CityPage = async ({ params }: CityPageProps) => {
     getCinemas({ cityId: id, limit: 100 }),
   ]);
 
-  console.log(city);
-
   const { screenings } = city;
+
   const cinemasCount = cinemasResponse.data.flatMap((g) => g.cinemas).length;
   const moviesCount = screenings?.length ?? 0;
   const screeningsCount =
@@ -32,12 +31,18 @@ const CityPage = async ({ params }: CityPageProps) => {
   return (
     <main className="bg-black min-h-screen px-8 py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-16">
-        <CityHeader city={city} />
+        <SectionHeader
+          prefix="Miasto"
+          title={city.name}
+          description={`Kina studyjne i aktualne seanse w ${city.nameDeclinated}.`}
+        />
+
         <CityStats
           cinemasCount={cinemasCount}
           moviesCount={moviesCount}
           screeningsCount={screeningsCount}
         />
+
         <SectionDivider />
         <CityCinemas cinemaGroups={cinemasResponse.data} />
         <SectionDivider />

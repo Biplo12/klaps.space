@@ -6,7 +6,7 @@ import CitiesList from "./_components/cities-list";
 export const dynamic = "force-dynamic";
 
 const CitiesPage = async () => {
-  const { data: cinemaGroups } = await getCinemas({ limit: 200 });
+  const { data: cinemaGroups } = await getCinemas({ limit: 500 });
 
   return (
     <main className="bg-black min-h-screen px-8 py-24 md:py-32">

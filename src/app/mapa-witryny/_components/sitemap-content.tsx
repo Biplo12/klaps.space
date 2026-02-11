@@ -21,7 +21,7 @@ const STATIC_GROUPS: SitemapGroup[] = [
       { href: "/screenings", label: "Seanse" },
       { href: "/filmy", label: "Filmy" },
       { href: "/kina", label: "Kina" },
-      { href: "/cities", label: "Miasta" },
+      { href: "/miasta", label: "Miasta" },
     ],
   },
   {
@@ -31,8 +31,8 @@ const STATIC_GROUPS: SitemapGroup[] = [
       { href: "/jak-to-dziala", label: "Jak to działa" },
       { href: "/kontakt", label: "Kontakt" },
       { href: "/regulamin", label: "Regulamin" },
-      { href: "/sitemap", label: "Mapa witryny" },
-      { href: "/accessibility", label: "Dostępność" },
+      { href: "/mapa-witryny", label: "Mapa witryny" },
+      { href: "/dostepnosc", label: "Dostępność" },
     ],
   },
 ];
@@ -47,13 +47,13 @@ const SitemapContent: React.FC<SitemapContentProps> = ({
   movies,
 }) => {
   const sortedGroups = [...cinemaGroups].sort((a, b) =>
-    a.city.name.localeCompare(b.city.name, "pl"),
+    a.city.name.localeCompare(b.city.name, "pl")
   );
 
   const citiesGroup: SitemapGroup = {
     heading: "Miasta",
     links: sortedGroups.map((group) => ({
-      href: `/cities/${group.city.id}`,
+      href: `/miasta/${group.city.id}`,
       label: group.city.name,
     })),
   };
@@ -64,7 +64,7 @@ const SitemapContent: React.FC<SitemapContentProps> = ({
       group.cinemas.map((cinema) => ({
         href: `/kina/${cinema.id}`,
         label: cinema.name,
-      })),
+      }))
     ),
   };
 

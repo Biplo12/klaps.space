@@ -23,7 +23,11 @@ const SitemapLinkGroup: React.FC<SitemapLinkGroupProps> = ({
 
       <ul className="divide-y divide-neutral-800">
         {links.map((link) => (
-          <SitemapLinkItem key={link.href} href={link.href} label={link.label} />
+          <SitemapLinkItem
+            key={link.href}
+            href={link.href}
+            label={link.label}
+          />
         ))}
       </ul>
     </div>
