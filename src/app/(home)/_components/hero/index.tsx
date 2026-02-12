@@ -1,19 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import HeroContent from "./hero-content";
-import { getRandomScreening } from "@/lib/screenings";
+import { IRandomScreening } from "@/interfaces/IScreenings";
 
-const Hero: React.FC = async () => {
-  const randomScreening = await getRandomScreening();
-  const movieTitle = randomScreening.movie.title;
+interface HeroProps {
+  screening: IRandomScreening;
+}
+
+const Hero: React.FC<HeroProps> = async ({ screening }) => {
+  const movieTitle = screening.movie.title;
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen w-full bg-black relative overflow-hidden">
-      <HeroContent screening={randomScreening} />
+      <HeroContent screening={screening} />
 
       <div className="absolute inset-0 z-1">
         <Image
-          src={randomScreening.movie.backdropUrl ?? ""}
+          src={screening.movie.backdropUrl ?? ""}
           alt={`Plakat filmowy: ${movieTitle}`}
           width={1920}
           height={1080}

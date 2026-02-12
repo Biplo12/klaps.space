@@ -20,7 +20,7 @@ export const getMultiCityMovies = async (
 ): Promise<IMultiCityMovie[]> => {
   const movies = await apiFetch<IMultiCityMovie[]>("/movies/multi-city", {
     params: {
-      limit: params.limit?.toString() ?? "10",
+      limit: params.limit?.toString() ?? "100",
     },
   });
   return movies;

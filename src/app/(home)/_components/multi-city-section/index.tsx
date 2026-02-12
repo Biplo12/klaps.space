@@ -1,7 +1,9 @@
 import React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import SectionHeader from "@/components/common/section-header";
-import MultiCityList from "./multi-city-list";
-import MultiCityPoster from "./multi-city-poster";
+import { Button } from "@/components/ui/button";
+import MultiCityInteractive from "./multi-city-interactive";
 import { IMultiCityMovie } from "@/interfaces/IMovies";
 
 interface MultiCitySectionProps {
@@ -11,9 +13,10 @@ interface MultiCitySectionProps {
 const MultiCitySection: React.FC<MultiCitySectionProps> = ({ movies }) => {
   if (movies.length === 0) return null;
 
-  const mostPlayedMovie = movies.sort(
+  const sortedMovies = [...movies].sort(
     (a, b) => b.citiesCount - a.citiesCount
-  )[0];
+  );
+  const mostPlayedMovie = sortedMovies[0];
 
   return (
     <section className="bg-black px-8 py-24 md:py-32">
@@ -24,13 +27,17 @@ const MultiCitySection: React.FC<MultiCitySectionProps> = ({ movies }) => {
           description="Te filmy wracają do kin w&nbsp;całej Polsce."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <MultiCityList movies={movies} />
-          <MultiCityPoster
-            movie={mostPlayedMovie}
-            runnersUp={movies.slice(1, 4)}
-          />
-        </div>
+        <MultiCityInteractive
+          movies={sortedMovies}
+          defaultMovie={mostPlayedMovie}
+        />
+
+        <Button variant="secondary" size="lg" asChild className="w-fit mx-auto">
+          <Link href="/filmy">
+            Zobacz wszystkie filmy
+            <ArrowRight className="size-4" />
+          </Link>
+        </Button>
       </div>
     </section>
   );

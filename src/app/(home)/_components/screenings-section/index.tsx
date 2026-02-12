@@ -1,8 +1,8 @@
 import React from "react";
 import ScreeningsSectionContent from "./screenings-section-content";
 import { getScreenings } from "@/lib/screenings";
-import { getCities } from "@/lib/cities";
 import { getGenres } from "@/lib/genres";
+import { getPreferredCityId } from "@/lib/get-preferred-city";
 
 interface ScreeningsSectionProps {
   searchParams?: {
@@ -15,27 +15,23 @@ interface ScreeningsSectionProps {
 
 const ScreeningsSection = async ({ searchParams }: ScreeningsSectionProps) => {
   const params = await searchParams;
+  const cityId = await getPreferredCityId(params);
 
-  const [screenings, cities, genres] = await Promise.all([
+  const [screenings, genres] = await Promise.all([
     getScreenings({
-      cityId: searchParams?.city,
+      cityId,
       genreId: params?.genre,
       dateFrom: params?.dateFrom,
       dateTo: params?.dateTo,
       limit: 12,
     }),
-    getCities(),
     getGenres(),
   ]);
 
   return (
     <section id="seanse" className="bg-black px-8 py-16 min-h-screen">
       <div className="max-w-[1400px] mx-auto">
-        <ScreeningsSectionContent
-          screenings={screenings}
-          cities={cities}
-          genres={genres}
-        />
+        <ScreeningsSectionContent screenings={screenings} genres={genres} />
       </div>
     </section>
   );

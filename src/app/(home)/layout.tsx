@@ -6,6 +6,7 @@ import StudioCinemasSection from "./_components/studio-cinemas-section";
 import SectionDivider from "@/components/ui/section-divider";
 import { getCinemas } from "@/lib/cinemas";
 import { getMultiCityMovies } from "@/lib/movies";
+import { getRandomScreening } from "@/lib/screenings";
 
 export const dynamic = "force-dynamic";
 
@@ -14,14 +15,17 @@ export default async function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [cinemasResponse, multiCityMovies] = await Promise.all([
-    getCinemas({ limit: 16 }),
-    getMultiCityMovies({ limit: 8 }),
-  ]);
+  const [randomScreening, cinemasResponse, multiCityMovies] = await Promise.all(
+    [
+      getRandomScreening(),
+      getCinemas({ limit: 16 }),
+      getMultiCityMovies({ limit: 8 }),
+    ]
+  );
 
   return (
     <>
-      <Hero />
+      <Hero screening={randomScreening} />
       {children}
       <SectionDivider />
       <HowItWorksSection />

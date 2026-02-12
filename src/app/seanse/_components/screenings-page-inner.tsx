@@ -3,7 +3,6 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { IScreeningGroup } from "@/interfaces/IScreenings";
-import { ICity } from "@/interfaces/ICities";
 import { IGenre } from "@/interfaces/IMovies";
 import {
   ScreeningsTransitionProvider,
@@ -16,7 +15,6 @@ import ScreeningsPageFilters from "./screenings-page-filters";
 
 interface ScreeningsPageInnerProps {
   screenings: readonly IScreeningGroup[];
-  cities: ICity[];
   genres: IGenre[];
   currentPage: number;
   totalPages: number;
@@ -24,7 +22,6 @@ interface ScreeningsPageInnerProps {
 
 const ScreeningsPageInnerContent: React.FC<ScreeningsPageInnerProps> = ({
   screenings,
-  cities,
   genres,
   currentPage,
   totalPages,
@@ -37,7 +34,7 @@ const ScreeningsPageInnerContent: React.FC<ScreeningsPageInnerProps> = ({
   const buildPageHref = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
-    return `/screenings?${params.toString()}`;
+    return `/seanse?${params.toString()}`;
   };
 
   return (
@@ -47,7 +44,7 @@ const ScreeningsPageInnerContent: React.FC<ScreeningsPageInnerProps> = ({
         isPending && "opacity-50 pointer-events-none",
       )}
     >
-      <ScreeningsPageFilters cities={cities} genres={genres} />
+      <ScreeningsPageFilters genres={genres} />
 
       <MoviesGrid
         screenings={[...screenings]}

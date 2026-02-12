@@ -8,10 +8,12 @@ import Logo from "@/components/common/logo";
 import DesktopNav from "./desktop-nav";
 import MobileMenuButton from "./mobile-menu-button";
 import MobileNav from "./mobile-nav";
+import HeaderCitySelect from "./header-city-select";
+import { ICity } from "@/interfaces/ICities";
 
 const NAV_LINKS = [
   { href: "/", label: "Strona główna" },
-  { href: "/screenings", label: "Seanse" },
+  { href: "/seanse", label: "Seanse" },
   { href: "/filmy", label: "Filmy" },
   { href: "/kina", label: "Kina" },
   { href: "/miasta", label: "Miasta" },
@@ -19,7 +21,11 @@ const NAV_LINKS = [
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  cities?: ICity[];
+}
+
+const Header: React.FC<HeaderProps> = ({ cities }) => {
   const hasScrolled = useHeaderScroll({ threshold: 50 });
   const {
     isOpen: isMenuOpen,
@@ -39,14 +45,27 @@ const Header: React.FC = () => {
         )}
       >
         <Logo />
-        <DesktopNav links={NAV_LINKS} />
+        <div className="hidden xl:flex items-center gap-4">
+          <DesktopNav links={NAV_LINKS} />
+          {cities && cities.length > 0 && (
+            <>
+              <div className="h-4 w-px bg-white/20" aria-hidden />
+              <HeaderCitySelect size="sm" />
+            </>
+          )}
+        </div>
         <MobileMenuButton
           isOpen={isMenuOpen}
           onToggle={handleToggle}
           onKeyDown={handleKeyDown}
         />
       </header>
-      <MobileNav links={NAV_LINKS} isOpen={isMenuOpen} onClose={handleClose} />
+      <MobileNav
+        links={NAV_LINKS}
+        cities={cities}
+        isOpen={isMenuOpen}
+        onClose={handleClose}
+      />
     </>
   );
 };

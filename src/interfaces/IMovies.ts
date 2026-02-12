@@ -64,6 +64,8 @@ export interface IMultiCityMovie {
   productionYear: number;
   posterUrl: string | null;
   citiesCount: number;
+  description: string | null;
+  duration: number | null;
 }
 
 export interface PaginatedResponse<T> {

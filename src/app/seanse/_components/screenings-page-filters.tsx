@@ -1,19 +1,16 @@
 "use client";
 
 import React from "react";
-import { ICity } from "@/interfaces/ICities";
 import { IGenre } from "@/interfaces/IMovies";
-import CitySelect from "@/components/common/city-select";
+import HeaderCitySelect from "@/components/layout/header/header-city-select";
 import ScreeningsDatePicker from "./screenings-date-picker";
 import ScreeningsGenreTags from "./screenings-genre-tags";
 
 interface ScreeningsPageFiltersProps {
-  cities: ICity[];
   genres: IGenre[];
 }
 
 const ScreeningsPageFilters: React.FC<ScreeningsPageFiltersProps> = ({
-  cities,
   genres,
 }) => {
   return (
@@ -22,7 +19,7 @@ const ScreeningsPageFilters: React.FC<ScreeningsPageFiltersProps> = ({
         <p className="text-neutral-400 text-base md:text-lg max-w-xl leading-relaxed">
           Wybierz miasto, datę i gatunek, aby znaleźć interesujące seanse.
         </p>
-        <CitySelect cities={cities} />
+        <HeaderCitySelect size="md" />
       </div>
 
       <ScreeningsDatePicker />

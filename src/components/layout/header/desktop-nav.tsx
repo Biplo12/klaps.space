@@ -12,7 +12,7 @@ interface DesktopNavProps {
 
 const DesktopNav: React.FC<DesktopNavProps> = ({ links }) => {
   return (
-    <nav className="hidden lg:flex items-center gap-10">
+    <nav className="hidden xl:flex items-center gap-6">
       {links.map((link) => (
         <NavLink
           key={link.href}

@@ -21,11 +21,12 @@ interface GetPaginatedScreeningsParams extends GetScreeningsParams {
 
 interface GetMovieScreeningsParams {
   movieId: string;
+  cityId?: string | null;
   limit?: number;
 }
 
 export const getScreenings = async (
-  params: GetScreeningsParams = {},
+  params: GetScreeningsParams = {}
 ): Promise<IScreeningGroup[]> => {
   const screenings = await apiFetch<IScreeningGroup[]>("/screenings", {
     params: {
@@ -42,11 +43,12 @@ export const getScreenings = async (
 };
 
 export const getMovieScreenings = async (
-  params: GetMovieScreeningsParams,
+  params: GetMovieScreeningsParams
 ): Promise<IScreening[]> => {
   const screenings = await apiFetch<IScreening[]>("/screenings", {
     params: {
       movieId: params.movieId,
+      cityId: params.cityId ?? "",
       limit: params.limit?.toString() ?? "100",
     },
   });
@@ -55,7 +57,7 @@ export const getMovieScreenings = async (
 };
 
 export const getPaginatedScreenings = async (
-  params: GetPaginatedScreeningsParams = {},
+  params: GetPaginatedScreeningsParams = {}
 ): Promise<PaginatedResponse<IScreeningGroup>> => {
   const response = await apiFetch<PaginatedResponse<IScreeningGroup>>(
     "/screenings",
@@ -69,7 +71,7 @@ export const getPaginatedScreenings = async (
         page: (params.page ?? 1).toString(),
         limit: (params.limit ?? 24).toString(),
       },
-    },
+    }
   );
 
   return response;
@@ -77,7 +79,7 @@ export const getPaginatedScreenings = async (
 
 export const getRandomScreening = async (): Promise<IRandomScreening> => {
   const screening = await apiFetch<IRandomScreening>(
-    "/screenings/random-screening",
+    "/screenings/random-screening"
   );
 
   if (!screening) {
@@ -88,7 +90,7 @@ export const getRandomScreening = async (): Promise<IRandomScreening> => {
 };
 
 export const groupScreeningsByCinema = (
-  screenings: IScreening[],
+  screenings: IScreening[]
 ): IScreening[][] => {
   const grouped = new Map<number, IScreening[]>();
 

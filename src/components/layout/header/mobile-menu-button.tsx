@@ -15,7 +15,7 @@ const MobileMenuButton: React.FC<MobileMenuButtonProps> = ({
   return (
     <button
       type="button"
-      className="lg:hidden flex flex-col justify-center items-center w-12 h-12 gap-1.5 bg-black focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red"
+      className="xl:hidden flex flex-col justify-center items-center w-12 h-12 gap-1.5 bg-black focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red"
       onClick={onToggle}
       onKeyDown={onKeyDown}
       aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}

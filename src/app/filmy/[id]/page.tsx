@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getMovieById } from "@/lib/movies";
 import { getMovieScreenings } from "@/lib/screenings";
+import { getPreferredCityId } from "@/lib/get-preferred-city";
 import SectionDivider from "@/components/ui/section-divider";
 import MovieHero from "./_components/movie-hero";
 import MovieDetailsSections from "./_components/movie-details-sections";
@@ -15,10 +16,11 @@ type MoviePageProps = {
 
 const MoviePage = async ({ params }: MoviePageProps) => {
   const { id } = await params;
+  const cityId = await getPreferredCityId();
 
   const [movie, screenings] = await Promise.all([
     getMovieById(Number(id)),
-    getMovieScreenings({ movieId: id, limit: 1000 }),
+    getMovieScreenings({ movieId: id, cityId, limit: 1000 }),
   ]);
 
   return (

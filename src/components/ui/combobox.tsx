@@ -61,10 +61,12 @@ function ComboboxInput({
   disabled = false,
   showTrigger = true,
   showClear = false,
+  leadingIcon,
   ...props
 }: ComboboxPrimitive.Input.Props & {
   showTrigger?: boolean;
   showClear?: boolean;
+  leadingIcon?: React.ReactNode;
 }) {
   return (
     <InputGroup
@@ -73,6 +75,11 @@ function ComboboxInput({
         className
       )}
     >
+      {leadingIcon && (
+        <InputGroupAddon align="inline-start">
+          {leadingIcon}
+        </InputGroupAddon>
+      )}
       <ComboboxPrimitive.Input
         render={
           <InputGroupInput

@@ -2,7 +2,6 @@
 
 import React from "react";
 import { IScreeningGroup } from "@/interfaces/IScreenings";
-import { ICity } from "@/interfaces/ICities";
 import { IGenre } from "@/interfaces/IMovies";
 import {
   ScreeningsTransitionProvider,
@@ -16,13 +15,12 @@ import MoviesGrid from "@/app/filmy/_components/movies-grid";
 
 interface ScreeningsSectionContentProps {
   screenings: IScreeningGroup[];
-  cities: ICity[];
   genres: IGenre[];
 }
 
 const ScreeningsSectionContentInner: React.FC<
   ScreeningsSectionContentProps
-> = ({ screenings, cities, genres }) => {
+> = ({ screenings, genres }) => {
   const { isPending } = useScreeningsTransition();
 
   const movies = screenings.map((screening) => screening.movie);
@@ -34,7 +32,7 @@ const ScreeningsSectionContentInner: React.FC<
         isPending && "opacity-50 pointer-events-none"
       )}
     >
-      <ScreeningsSectionHeader cities={cities} genres={genres} />
+      <ScreeningsSectionHeader genres={genres} />
       {screenings.length === 0 && <EmptyState />}
 
       <MoviesGrid
@@ -43,7 +41,7 @@ const ScreeningsSectionContentInner: React.FC<
         showDescription={true}
       />
 
-      <ScreeningsSectionCta />
+      {screenings.length >= 12 && <ScreeningsSectionCta />}
     </div>
   );
 };

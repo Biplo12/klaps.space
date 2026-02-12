@@ -79,7 +79,7 @@ const MovieScreenings: React.FC<MovieScreeningsProps> = ({ screenings }) => {
 
       <DateTabs
         dates={availableDates}
-        selectedDate={selectedDate}
+        selectedDate={selectedDate ?? availableDates[0] ?? ""}
         onDateChange={handleDateChange}
         label="Data seansów"
       />
