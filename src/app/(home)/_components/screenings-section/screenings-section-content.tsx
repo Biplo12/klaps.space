@@ -8,7 +8,6 @@ import {
   useScreeningsTransition,
 } from "@/contexts/screenings-transition-context";
 import { cn } from "@/lib/utils";
-import EmptyState from "@/components/common/empty-state";
 import ScreeningsSectionHeader from "./screenings-section-header";
 import ScreeningsSectionCta from "./screenings-section-cta";
 import MoviesGrid from "@/app/filmy/_components/movies-grid";
@@ -33,7 +32,6 @@ const ScreeningsSectionContentInner: React.FC<
       )}
     >
       <ScreeningsSectionHeader genres={genres} />
-      {screenings.length === 0 && <EmptyState />}
 
       <MoviesGrid
         screenings={screenings}

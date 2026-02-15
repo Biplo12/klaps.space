@@ -18,7 +18,7 @@ const MovieScreeningRow: React.FC<MovieScreeningRowProps> = ({
   if (!firstScreening) return null;
 
   const sortedScreenings = [...screenings].sort((a, b) =>
-    a.dateTime.localeCompare(b.dateTime)
+    a.dateTime.localeCompare(b.dateTime),
   );
 
   const groupedByDate = showDate
@@ -67,11 +67,7 @@ const MovieScreeningRow: React.FC<MovieScreeningRowProps> = ({
                     size="sm"
                     asChild
                   >
-                    <Link
-                      href={screening.ticketUrl ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <Link href={`/seanse/${screening.id}`}>
                       {screening.time}
                     </Link>
                   </Button>
@@ -84,14 +80,7 @@ const MovieScreeningRow: React.FC<MovieScreeningRowProps> = ({
         <div className="flex flex-wrap gap-2">
           {sortedScreenings.map((screening) => (
             <Button key={screening.id} variant="secondary" size="sm" asChild>
-              <Link
-                href={screening.ticketUrl ?? "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Kup bilet na seans o ${screening.time}`}
-              >
-                {screening.time}
-              </Link>
+              <Link href={`/seanse/${screening.id}`}>{screening.time}</Link>
             </Button>
           ))}
         </div>

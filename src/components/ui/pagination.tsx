@@ -1,22 +1,20 @@
-import * as React from "react"
+import * as React from "react";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   MoreHorizontalIcon,
-} from "lucide-react"
+} from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
-      role="navigation"
-      aria-label="pagination"
       data-slot="pagination"
       className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationContent({
@@ -29,16 +27,16 @@ function PaginationContent({
       className={cn("flex flex-row items-center gap-1", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />
+  return <li data-slot="pagination-item" {...props} />;
 }
 
 type PaginationLinkProps = {
-  isActive?: boolean
-} & React.ComponentProps<"a">
+  isActive?: boolean;
+} & React.ComponentProps<"a">;
 
 function PaginationLink({
   className,
@@ -47,7 +45,6 @@ function PaginationLink({
 }: PaginationLinkProps) {
   return (
     <a
-      aria-current={isActive ? "page" : undefined}
       data-slot="pagination-link"
       data-active={isActive}
       className={cn(
@@ -55,11 +52,11 @@ function PaginationLink({
         isActive
           ? "bg-blood-red text-white"
           : "text-neutral-400 hover:text-white hover:bg-white/5",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationPrevious({
@@ -67,14 +64,10 @@ function PaginationPrevious({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   return (
-    <PaginationLink
-      aria-label="Przejdź do poprzedniej strony"
-      className={cn("size-10", className)}
-      {...props}
-    >
+    <PaginationLink className={cn("size-10", className)} {...props}>
       <ChevronLeftIcon className="size-5" />
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationNext({
@@ -82,14 +75,10 @@ function PaginationNext({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   return (
-    <PaginationLink
-      aria-label="Przejdź do następnej strony"
-      className={cn("size-10", className)}
-      {...props}
-    >
+    <PaginationLink className={cn("size-10", className)} {...props}>
       <ChevronRightIcon className="size-5" />
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationEllipsis({
@@ -98,18 +87,17 @@ function PaginationEllipsis({
 }: React.ComponentProps<"span">) {
   return (
     <span
-      aria-hidden
       data-slot="pagination-ellipsis"
       className={cn(
         "flex size-10 items-center justify-center text-neutral-600",
-        className
+        className,
       )}
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
       <span className="sr-only">Więcej stron</span>
     </span>
-  )
+  );
 }
 
 export {
@@ -120,4 +108,4 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
-}
+};

@@ -22,6 +22,7 @@ const ScreeningSummary: React.FC<ScreeningSummaryProps> = ({
           {screeningsCount} {screeningsCount === 1 ? "seans" : "seansów"}
         </span>
       </span>
+      
       {cinemasCount > 1 && (
         <span className="flex items-center gap-1">
           <Ticket className="size-3 text-blood-red" aria-hidden="true" />

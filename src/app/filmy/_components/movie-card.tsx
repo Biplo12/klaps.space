@@ -23,12 +23,11 @@ const MovieCard: React.FC<MovieCardProps> = ({
   showHoverOverlay = true,
 }) => {
   const formattedGenres = formatGenres(movie.genres);
-  const durationLabel = movie.duration ? `${movie.duration} min` : "";
   const desc =
     "description" in movie
-      ? (
+      ? ((
           movie as IMovieSummary & { description?: string | null }
-        ).description?.trim() ?? ""
+        ).description?.trim() ?? "")
       : "";
 
   return (
@@ -37,9 +36,6 @@ const MovieCard: React.FC<MovieCardProps> = ({
         <Link
           href={`/filmy/${movie.id}`}
           className="block overflow-hidden border border-white/10 transition-transform duration-300 group-hover:scale-[1.02] w-full aspect-2/3 focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          aria-label={`${movie.title}${
-            durationLabel ? ` — ${durationLabel}` : ""
-          }`}
         >
           <MoviePoster
             posterUrl={movie.posterUrl ?? ""}

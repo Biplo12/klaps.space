@@ -13,6 +13,8 @@ import PaginatedNav from "@/components/common/paginated-nav";
 import MoviesGrid from "@/app/filmy/_components/movies-grid";
 import ScreeningsPageFilters from "./screenings-page-filters";
 
+const ITEMS_PER_PAGE = 24;
+
 interface ScreeningsPageInnerProps {
   screenings: readonly IScreeningGroup[];
   genres: IGenre[];
@@ -23,13 +25,30 @@ interface ScreeningsPageInnerProps {
 const ScreeningsPageInnerContent: React.FC<ScreeningsPageInnerProps> = ({
   screenings,
   genres,
-  currentPage,
-  totalPages,
+  currentPage: serverPage,
+  totalPages: serverTotalPages,
 }) => {
   const { isPending } = useScreeningsTransition();
   const searchParams = useSearchParams();
 
-  const movies = screenings.map((screening) => screening.movie);
+  const isServerPaginated = serverTotalPages > 1;
+
+  const currentPage = isServerPaginated
+    ? serverPage
+    : Number(searchParams.get("page") || "1");
+
+  const totalPages = isServerPaginated
+    ? serverTotalPages
+    : Math.ceil(screenings.length / ITEMS_PER_PAGE);
+
+  const paginatedScreenings = isServerPaginated
+    ? screenings
+    : screenings.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+      );
+
+  const movies = paginatedScreenings.map((screening) => screening.movie);
 
   const buildPageHref = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -41,13 +60,13 @@ const ScreeningsPageInnerContent: React.FC<ScreeningsPageInnerProps> = ({
     <div
       className={cn(
         "flex flex-col gap-10 transition-opacity duration-200",
-        isPending && "opacity-50 pointer-events-none",
+        isPending && "opacity-50 pointer-events-none"
       )}
     >
       <ScreeningsPageFilters genres={genres} />
 
       <MoviesGrid
-        screenings={[...screenings]}
+        screenings={[...paginatedScreenings]}
         movies={[...movies]}
         showDescription={true}
       />

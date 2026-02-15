@@ -1,6 +1,7 @@
 import {
   IScreening,
   IScreeningGroup,
+  IScreeningDetail,
   IRandomScreening,
 } from "@/interfaces/IScreenings";
 import { PaginatedResponse } from "@/interfaces/IMovies";
@@ -26,9 +27,11 @@ interface GetMovieScreeningsParams {
 }
 
 export const getScreenings = async (
-  params: GetScreeningsParams = {}
+  params: GetScreeningsParams = {},
 ): Promise<IScreeningGroup[]> => {
-  const screenings = await apiFetch<IScreeningGroup[]>("/screenings", {
+  const response = await apiFetch<
+    IScreeningGroup[] | PaginatedResponse<IScreeningGroup>
+  >("/screenings", {
     params: {
       cityId: params.cityId ?? "",
       cinemaId: params.cinemaId ?? "",
@@ -39,13 +42,15 @@ export const getScreenings = async (
     },
   });
 
-  return screenings;
+  return Array.isArray(response) ? response : [...response.data];
 };
 
 export const getMovieScreenings = async (
-  params: GetMovieScreeningsParams
+  params: GetMovieScreeningsParams,
 ): Promise<IScreening[]> => {
-  const screenings = await apiFetch<IScreening[]>("/screenings", {
+  const response = await apiFetch<
+    IScreening[] | PaginatedResponse<IScreening>
+  >("/screenings", {
     params: {
       movieId: params.movieId,
       cityId: params.cityId ?? "",
@@ -53,33 +58,39 @@ export const getMovieScreenings = async (
     },
   });
 
-  return screenings;
+  return Array.isArray(response) ? response : [...response.data];
 };
 
 export const getPaginatedScreenings = async (
-  params: GetPaginatedScreeningsParams = {}
-): Promise<PaginatedResponse<IScreeningGroup>> => {
-  const response = await apiFetch<PaginatedResponse<IScreeningGroup>>(
-    "/screenings",
-    {
-      params: {
-        cityId: params.cityId ?? "",
-        cinemaId: params.cinemaId ?? "",
-        genreId: params.genreId ?? "",
-        dateFrom: params.dateFrom ?? "",
-        dateTo: params.dateTo ?? "",
-        page: (params.page ?? 1).toString(),
-        limit: (params.limit ?? 24).toString(),
-      },
-    }
-  );
+  params: GetPaginatedScreeningsParams = {},
+): Promise<PaginatedResponse<IScreeningGroup> | IScreeningGroup[]> => {
+  const response = await apiFetch<
+    PaginatedResponse<IScreeningGroup> | IScreeningGroup[]
+  >("/screenings", {
+    params: {
+      cityId: params.cityId ?? "",
+      cinemaId: params.cinemaId ?? "",
+      genreId: params.genreId ?? "",
+      dateFrom: params.dateFrom ?? "",
+      dateTo: params.dateTo ?? "",
+      page: (params.page ?? 1).toString(),
+      limit: (params.limit ?? 24).toString(),
+    },
+  });
 
   return response;
 };
 
+export const getScreeningById = async (
+  id: number,
+): Promise<IScreeningDetail> => {
+  const screening = await apiFetch<IScreeningDetail>(`/screenings/${id}`);
+  return screening;
+};
+
 export const getRandomScreening = async (): Promise<IRandomScreening> => {
   const screening = await apiFetch<IRandomScreening>(
-    "/screenings/random-screening"
+    "/screenings/random-screening",
   );
 
   if (!screening) {
@@ -90,7 +101,7 @@ export const getRandomScreening = async (): Promise<IRandomScreening> => {
 };
 
 export const groupScreeningsByCinema = (
-  screenings: IScreening[]
+  screenings: IScreening[],
 ): IScreening[][] => {
   const grouped = new Map<number, IScreening[]>();
 

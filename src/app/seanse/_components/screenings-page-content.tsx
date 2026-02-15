@@ -31,12 +31,19 @@ const ScreeningsPageContent = async ({
     getGenres(),
   ]);
 
+  const isPaginated = !Array.isArray(screeningsResponse);
+  const screenings = isPaginated ? screeningsResponse.data : screeningsResponse;
+  const page = isPaginated ? screeningsResponse.meta.page : 1;
+  const totalPages = isPaginated ? screeningsResponse.meta.totalPages : 1;
+
+  console.log(screeningsResponse);
+
   return (
     <ScreeningsPageInner
-      screenings={screeningsResponse?.data || []}
+      screenings={screenings || []}
       genres={genres}
-      currentPage={screeningsResponse?.meta?.page || 1}
-      totalPages={screeningsResponse?.meta?.totalPages || 1}
+      currentPage={page}
+      totalPages={totalPages}
     />
   );
 };

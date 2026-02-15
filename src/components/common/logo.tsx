@@ -8,7 +8,6 @@ const Logo: React.FC = () => {
     <Link
       href="/"
       className="inline-flex flex-col gap-0.5 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:ring-2 focus-visible:ring-blood-red focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
-      aria-label="Klatka – strona główna"
     >
       <span className="text-4xl font-monoton uppercase text-blood-red drop-shadow-[0_0_1px_rgba(255,255,255,0.3)]">
         Klatka

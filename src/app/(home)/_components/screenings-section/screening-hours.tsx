@@ -13,21 +13,14 @@ const ScreeningHours: React.FC<ScreeningHoursProps> = ({ screenings }) => {
   }
 
   const sortedScreenings = [...screenings].sort((a, b) =>
-    a.dateTime.localeCompare(b.dateTime)
+    a.dateTime.localeCompare(b.dateTime),
   );
 
   return (
     <div className="flex flex-wrap gap-2 mt-2">
       {sortedScreenings.map((screening) => (
         <Button key={screening.id} variant="secondary" size="sm" asChild>
-          <Link
-            href={screening.ticketUrl ?? "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Kup bilet na seans o ${screening.time}`}
-          >
-            {screening.time}
-          </Link>
+          <Link href={`/seanse/${screening.id}`}>{screening.time}</Link>
         </Button>
       ))}
     </div>

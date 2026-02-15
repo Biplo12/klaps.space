@@ -62,12 +62,10 @@ const PaginatedNav: React.FC<PaginatedNavProps> = ({
         <PaginationItem>
           <PaginationPrevious
             href={hasPrevious ? buildHref(currentPage - 1) : undefined}
-            aria-disabled={!hasPrevious}
             tabIndex={hasPrevious ? 0 : -1}
             className={
               !hasPrevious ? "pointer-events-none text-neutral-700" : undefined
             }
-            aria-label="Przejdź do poprzedniej strony"
           />
         </PaginationItem>
 
@@ -84,11 +82,7 @@ const PaginatedNav: React.FC<PaginatedNavProps> = ({
 
           return (
             <PaginationItem key={page}>
-              <PaginationLink
-                href={buildHref(page)}
-                isActive={isActive}
-                aria-label={`Przejdź do strony ${page}`}
-              >
+              <PaginationLink href={buildHref(page)} isActive={isActive}>
                 {page}
               </PaginationLink>
             </PaginationItem>
@@ -98,12 +92,10 @@ const PaginatedNav: React.FC<PaginatedNavProps> = ({
         <PaginationItem>
           <PaginationNext
             href={hasNext ? buildHref(currentPage + 1) : undefined}
-            aria-disabled={!hasNext}
             tabIndex={hasNext ? 0 : -1}
             className={
               !hasNext ? "pointer-events-none text-neutral-700" : undefined
             }
-            aria-label="Przejdź do następnej strony"
           />
         </PaginationItem>
       </PaginationContent>

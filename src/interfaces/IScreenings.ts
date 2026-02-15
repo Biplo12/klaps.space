@@ -23,6 +23,11 @@ export interface IScreeningGroup {
   screenings: IScreening[];
 }
 
+export interface IScreeningDetail {
+  movie: IMovieHero;
+  screening: IScreening;
+}
+
 export interface IRandomScreening {
   movie: IMovieHero;
   screening: IScreening;

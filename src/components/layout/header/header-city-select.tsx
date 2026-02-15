@@ -41,7 +41,7 @@ const HeaderCitySelect: React.FC<HeaderCitySelectProps> = ({
 
   const selectedOption: CityOption | null =
     isHydrated && cityId !== null
-      ? options.find((o) => o.value === cityId) ?? null
+      ? (options.find((o) => o.value === cityId) ?? null)
       : null;
 
   const handleCityChange = (option: CityOption | null) => {
@@ -64,11 +64,9 @@ const HeaderCitySelect: React.FC<HeaderCitySelectProps> = ({
           placeholder={displayPlaceholder}
           showTrigger
           showClear={isHydrated && !!cityId}
-          aria-label="Wybierz miasto"
           leadingIcon={
             <MapPin
               className={cn("text-blood-red shrink-0", iconSizeStyles[size])}
-              aria-hidden
             />
           }
           className={cn(

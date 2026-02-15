@@ -11,15 +11,10 @@ const SectionLoader: React.FC<SectionLoaderProps> = ({ label, className }) => (
   <div
     className={cn(
       "flex flex-col items-center justify-center gap-4 min-h-screen",
-      className
+      className,
     )}
-    role="status"
-    aria-label={label ?? "Ładowanie"}
   >
-    <Loader2
-      className="h-8 w-8 text-blood-red animate-spin"
-      aria-hidden="true"
-    />
+    <Loader2 className="h-8 w-8 text-blood-red animate-spin" />
     {label && (
       <p className="text-white/50 text-xs uppercase tracking-[0.25em] font-semibold">
         {label}
