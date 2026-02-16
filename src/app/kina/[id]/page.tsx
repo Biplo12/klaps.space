@@ -1,6 +1,8 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getCinemaById } from "@/lib/cinemas";
 import { getScreenings } from "@/lib/screenings";
+import { ApiNotFoundError } from "@/lib/client";
 import SectionDivider from "@/components/ui/section-divider";
 import CinemaHeader from "./_components/cinema-header";
 import CinemaMapLazy from "./_components/cinema-map-lazy";
@@ -15,10 +17,20 @@ type CinemaPageProps = {
 const CinemaPage = async ({ params }: CinemaPageProps) => {
   const { id } = await params;
 
-  const [cinema, screenings] = await Promise.all([
-    getCinemaById(id),
-    getScreenings({ cinemaId: id, limit: 100 }),
-  ]);
+  let cinema;
+  let screenings;
+
+  try {
+    [cinema, screenings] = await Promise.all([
+      getCinemaById(id),
+      getScreenings({ cinemaId: id, limit: 100 }),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiNotFoundError) {
+      notFound();
+    }
+    throw error;
+  }
 
   return (
     <main className="bg-black min-h-screen px-8 py-24 md:py-32">

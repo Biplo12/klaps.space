@@ -1,6 +1,13 @@
 const API_URL = process.env.API_URL!;
 const INTERNAL_API_KEY = process.env.INTERNAL_API_KEY!;
 
+export class ApiNotFoundError extends Error {
+  constructor(path: string) {
+    super(`Resource not found: ${path}`);
+    this.name = "ApiNotFoundError";
+  }
+}
+
 export async function apiFetch<T>(
   path: string,
   options: RequestInit & { params?: Record<string, string> } = {}
@@ -26,6 +33,10 @@ export async function apiFetch<T>(
     });
 
     if (!res.ok) {
+      if (res.status === 404) {
+        throw new ApiNotFoundError(path);
+      }
+
       const errorBody = await res.text();
       console.error(res.statusText, errorBody);
       throw new Error(`API error ${res.status}: ${errorBody}`);
@@ -33,6 +44,10 @@ export async function apiFetch<T>(
 
     return res.json();
   } catch (error) {
+    if (error instanceof ApiNotFoundError) {
+      throw error;
+    }
+
     console.error(error);
     throw new Error(`Failed to fetch data: ${error}`);
   }

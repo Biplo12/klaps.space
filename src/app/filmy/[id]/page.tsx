@@ -1,7 +1,9 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getMovieById } from "@/lib/movies";
 import { getMovieScreenings } from "@/lib/screenings";
 import { getPreferredCityId } from "@/lib/get-preferred-city";
+import { ApiNotFoundError } from "@/lib/client";
 import SectionDivider from "@/components/ui/section-divider";
 import MovieHero from "./_components/movie-hero";
 import MovieDetailsSections from "./_components/movie-details-sections";
@@ -18,10 +20,20 @@ const MoviePage = async ({ params }: MoviePageProps) => {
   const { id } = await params;
   const cityId = await getPreferredCityId();
 
-  const [movie, screenings] = await Promise.all([
-    getMovieById(Number(id)),
-    getMovieScreenings({ movieId: id, cityId, limit: 1000 }),
-  ]);
+  let movie;
+  let screenings;
+
+  try {
+    [movie, screenings] = await Promise.all([
+      getMovieById(Number(id)),
+      getMovieScreenings({ movieId: id, cityId, limit: 1000 }),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiNotFoundError) {
+      notFound();
+    }
+    throw error;
+  }
 
   return (
     <main className="bg-black min-h-screen px-8 py-24 md:py-32">

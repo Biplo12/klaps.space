@@ -1,5 +1,7 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getScreeningById } from "@/lib/screenings";
+import { ApiNotFoundError } from "@/lib/client";
 import SectionDivider from "@/components/ui/section-divider";
 import ScreeningHero from "./_components/screening-hero";
 import ScreeningInfo from "./_components/screening-info";
@@ -14,7 +16,18 @@ type ScreeningPageProps = {
 
 const ScreeningPage = async ({ params }: ScreeningPageProps) => {
   const { id } = await params;
-  const { movie, screening } = await getScreeningById(Number(id));
+
+  let movie;
+  let screening;
+
+  try {
+    ({ movie, screening } = await getScreeningById(Number(id)));
+  } catch (error) {
+    if (error instanceof ApiNotFoundError) {
+      notFound();
+    }
+    throw error;
+  }
 
   return (
     <main className="bg-black min-h-screen px-8 py-24 md:py-32">

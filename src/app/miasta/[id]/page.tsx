@@ -1,6 +1,8 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getCityById } from "@/lib/cities";
 import { getCinemas } from "@/lib/cinemas";
+import { ApiNotFoundError } from "@/lib/client";
 import SectionDivider from "@/components/ui/section-divider";
 import CityStats from "./_components/city-stats";
 import CityCinemas from "./_components/city-cinemas";
@@ -16,10 +18,20 @@ type CityPageProps = {
 const CityPage = async ({ params }: CityPageProps) => {
   const { id } = await params;
 
-  const [cityData, cinemasResponse] = await Promise.all([
-    getCityById(Number(id)),
-    getCinemas({ cityId: id, limit: 100 }),
-  ]);
+  let cityData;
+  let cinemasResponse;
+
+  try {
+    [cityData, cinemasResponse] = await Promise.all([
+      getCityById(Number(id)),
+      getCinemas({ cityId: id, limit: 100 }),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiNotFoundError) {
+      notFound();
+    }
+    throw error;
+  }
 
   const { screenings: rawScreenings, city } = cityData;
 
