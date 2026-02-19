@@ -8,6 +8,7 @@ import Footer from "@/components/layout/footer";
 import ScrollToTop from "@/components/common/scroll-to-top";
 import { CityProvider } from "@/contexts/city-context";
 import { getCities } from "@/lib/cities";
+import { SITE_URL } from "@/lib/site-config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Klaps - Repertuar seansów specjalnych i klasyki filmowej",
     template: "%s - Klaps",
@@ -30,6 +32,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pl_PL",
     siteName: "Klaps",
+    images: [
+      {
+        url: "/klaps-og.png",
+        width: 1200,
+        height: 630,
+        alt: "Klaps - Repertuar seansów specjalnych i klasyki filmowej",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/klaps-og.png"],
   },
 };
 
