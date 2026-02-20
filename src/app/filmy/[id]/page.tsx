@@ -9,11 +9,66 @@ import MovieHero from "./_components/movie-hero";
 import MovieDetailsSections from "./_components/movie-details-sections";
 import MovieScreenings from "./_components/movie-screenings";
 import MovieTrailer from "./_components/movie-trailer";
+import JsonLd from "@/components/common/json-ld";
+import { SITE_URL } from "@/lib/site-config";
+import { IMovie } from "@/interfaces/IMovies";
 
 export const dynamic = "force-dynamic";
 
 type MoviePageProps = {
   params: Promise<{ id: string }>;
+};
+
+const buildMovieJsonLd = (movie: IMovie) => {
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    name: movie.title,
+    url: `${SITE_URL}/filmy/${movie.id}`,
+    description: movie.description ?? undefined,
+    dateCreated: movie.productionYear.toString(),
+    genre: movie.genres.map((g) => g.name),
+  };
+
+  if (movie.titleOriginal) {
+    jsonLd.alternateName = movie.titleOriginal;
+  }
+
+  if (movie.duration) {
+    const hours = Math.floor(movie.duration / 60);
+    const minutes = movie.duration % 60;
+    jsonLd.duration = `PT${hours}H${minutes}M`;
+  }
+
+  if (movie.posterUrl) {
+    jsonLd.image = movie.posterUrl;
+  }
+
+  if (movie.directors?.length) {
+    jsonLd.director = movie.directors.map((d) => ({
+      "@type": "Person",
+      name: d.name,
+    }));
+  }
+
+  if (movie.actors?.length) {
+    jsonLd.actor = movie.actors.map((a) => ({
+      "@type": "Person",
+      name: a.name,
+    }));
+  }
+
+  if (movie.ratings.users) {
+    jsonLd.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: movie.ratings.users.score,
+      ratingCount: movie.ratings.users.votes,
+      bestRating: 10,
+      worstRating: 1,
+    };
+  }
+
+  return jsonLd;
 };
 
 const MoviePage = async ({ params }: MoviePageProps) => {
@@ -36,24 +91,27 @@ const MoviePage = async ({ params }: MoviePageProps) => {
   }
 
   return (
-    <main className="bg-black min-h-screen px-8 py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-16">
-        <MovieHero movie={movie} />
+    <>
+      <JsonLd data={buildMovieJsonLd(movie)} />
+      <main className="bg-black min-h-screen px-8 py-24 md:py-32">
+        <div className="max-w-[1400px] mx-auto flex flex-col gap-16">
+          <MovieHero movie={movie} />
 
-        <SectionDivider />
-        <MovieDetailsSections movie={movie} />
+          <SectionDivider />
+          <MovieDetailsSections movie={movie} />
 
-        {movie.videoUrl && (
-          <>
-            <SectionDivider />
-            <MovieTrailer videoUrl={movie.videoUrl} />
-          </>
-        )}
+          {movie.videoUrl && (
+            <>
+              <SectionDivider />
+              <MovieTrailer videoUrl={movie.videoUrl} />
+            </>
+          )}
 
-        <SectionDivider />
-        <MovieScreenings screenings={screenings} />
-      </div>
-    </main>
+          <SectionDivider />
+          <MovieScreenings screenings={screenings} />
+        </div>
+      </main>
+    </>
   );
 };
 

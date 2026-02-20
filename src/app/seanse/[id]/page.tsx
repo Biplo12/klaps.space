@@ -7,11 +7,51 @@ import ScreeningHero from "./_components/screening-hero";
 import ScreeningInfo from "./_components/screening-info";
 import ScreeningCinema from "./_components/screening-cinema";
 import ScreeningTicketButton from "./_components/screening-ticket-button";
+import JsonLd from "@/components/common/json-ld";
+import { SITE_URL } from "@/lib/site-config";
+import { IScreeningDetail } from "@/interfaces/IScreenings";
 
 export const dynamic = "force-dynamic";
 
 type ScreeningPageProps = {
   params: Promise<{ id: string }>;
+};
+
+const buildScreeningJsonLd = ({ movie, screening }: IScreeningDetail) => {
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "ScreeningEvent",
+    name: `${movie.title} — Seans`,
+    startDate: screening.dateTime,
+    url: `${SITE_URL}/seanse/${screening.id}`,
+    location: {
+      "@type": "MovieTheater",
+      name: screening.cinema.name,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: screening.cinema.street ?? undefined,
+        addressLocality: screening.cinema.city.name,
+        addressCountry: "PL",
+      },
+    },
+    workPresented: {
+      "@type": "Movie",
+      name: movie.title,
+      url: `${SITE_URL}/filmy/${movie.id}`,
+      ...(movie.description && { description: movie.description }),
+      ...(movie.posterUrl && { image: movie.posterUrl }),
+    },
+  };
+
+  if (screening.ticketUrl) {
+    jsonLd.offers = {
+      "@type": "Offer",
+      url: screening.ticketUrl,
+      availability: "https://schema.org/InStock",
+    };
+  }
+
+  return jsonLd;
 };
 
 const ScreeningPage = async ({ params }: ScreeningPageProps) => {
@@ -30,24 +70,27 @@ const ScreeningPage = async ({ params }: ScreeningPageProps) => {
   }
 
   return (
-    <main className="bg-black min-h-screen px-8 py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-16">
-        <ScreeningHero movie={movie} />
+    <>
+      <JsonLd data={buildScreeningJsonLd({ movie, screening })} />
+      <main className="bg-black min-h-screen px-8 py-24 md:py-32">
+        <div className="max-w-[1400px] mx-auto flex flex-col gap-16">
+          <ScreeningHero movie={movie} />
 
-        <SectionDivider />
-        <ScreeningInfo screening={screening} />
+          <SectionDivider />
+          <ScreeningInfo screening={screening} />
 
-        <SectionDivider />
-        <ScreeningCinema cinema={screening.cinema} />
+          <SectionDivider />
+          <ScreeningCinema cinema={screening.cinema} />
 
-        {screening.ticketUrl && (
-          <>
-            <SectionDivider />
-            <ScreeningTicketButton ticketUrl={screening.ticketUrl} />
-          </>
-        )}
-      </div>
-    </main>
+          {screening.ticketUrl && (
+            <>
+              <SectionDivider />
+              <ScreeningTicketButton ticketUrl={screening.ticketUrl} />
+            </>
+          )}
+        </div>
+      </main>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import GoalsSection from "./sections/goals-section";
 import PhilosophySection from "./sections/philosophy-section";
 import AudienceSection from "./sections/audience-section";
 import CharacterSection from "./sections/character-section";
+import OpenSourceSection from "./sections/open-source-section";
 import SummarySection from "./sections/summary-section";
 import { useActiveSection } from "@/hooks/use-active-section";
 
@@ -22,6 +23,7 @@ const SECTION_IDS = [
   "filozofia",
   "grupa-docelowa",
   "charakter",
+  "kod-zrodlowy",
   "podsumowanie",
 ] as const;
 
@@ -34,6 +36,7 @@ const SIDEBAR_LINKS = [
   { id: "filozofia", label: "Filozofia" },
   { id: "grupa-docelowa", label: "Grupa docelowa" },
   { id: "charakter", label: "Charakter projektu" },
+  { id: "kod-zrodlowy", label: "Kod źródłowy" },
   { id: "podsumowanie", label: "Podsumowanie" },
 ];
 
@@ -52,6 +55,7 @@ const AboutPageContent: React.FC = () => {
         <PhilosophySection />
         <AudienceSection />
         <CharacterSection />
+        <OpenSourceSection />
         <SummarySection />
       </div>
     </div>

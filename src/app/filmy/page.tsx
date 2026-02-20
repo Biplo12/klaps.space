@@ -5,6 +5,7 @@ import SectionHeader from "@/components/common/section-header";
 import MoviesGrid from "./_components/movies-grid";
 import MoviesPageFilters from "./_components/movies-page-filters";
 import PaginatedNav from "@/components/common/paginated-nav";
+import { SITE_URL } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +62,9 @@ export const metadata: Metadata = {
   title: "Filmy - Klaps",
   description:
     "Katalog filmów dostępnych w serwisie Klaps. Klasyka, retrospektywy i seanse specjalne w kinach studyjnych.",
+  alternates: {
+    canonical: `${SITE_URL}/filmy`,
+  },
 };
 
 export default MoviesPage;

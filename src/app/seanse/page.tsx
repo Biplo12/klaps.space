@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import SectionHeader from "@/components/common/section-header";
 import ScreeningsPageContent from "./_components/screenings-page-content";
 import ScreeningsPageLoader from "./_components/screenings-page-loader";
+import { SITE_URL } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,9 @@ export const metadata: Metadata = {
   title: "Seanse - Klaps",
   description:
     "Pełna lista seansów specjalnych i klasyki filmowej w kinach studyjnych w całej Polsce. Filtruj po mieście, dacie i gatunku.",
+  alternates: {
+    canonical: `${SITE_URL}/seanse`,
+  },
 };
 
 export default ScreeningsPage;
