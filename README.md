@@ -194,15 +194,18 @@ The project uses **GitHub Actions** for CI/CD (`.github/workflows/deploy.yml`):
 
 **Required GitHub Secrets:**
 
-| Secret              | Description                     |
-| ------------------- | ------------------------------- |
-| `SERVER_IP`         | Deployment server IP            |
-| `SERVER_USER`       | SSH user                        |
-| `SERVER_SSH_KEY`    | SSH private key                 |
-| `API_URL`           | Backend API URL                 |
-| `INTERNAL_API_KEY`  | API authentication key          |
-| `GA_MEASUREMENT_ID` | Google Analytics measurement ID |
-| `GHCR_PAT`          | GitHub Container Registry token |
+| Secret              | Description                              |
+| ------------------- | ---------------------------------------- |
+| `SERVER_IP`         | Deployment server IP                     |
+| `SERVER_USER`       | SSH user                                 |
+| `SERVER_SSH_KEY`    | SSH private key                          |
+| `API_URL`           | Backend API URL                          |
+| `INTERNAL_API_KEY`  | API authentication key                   |
+| `GA_MEASUREMENT_ID` | Google Analytics measurement ID          |
+| `GHCR_PAT`         | GitHub Container Registry token          |
+| `DEPLOY_DIR`        | Base deploy path on server               |
+| `DOCKER_IMAGE`      | Full Docker image name (e.g. ghcr.io/…) |
+| `DOMAIN`            | Site domain (per environment)            |
 
 ## Environment Variables
 
@@ -224,6 +227,14 @@ Klaps is an open-source project. The source code is publicly available on GitHub
 
 > The scrapper responsible for collecting screening data is not publicly available for legal reasons.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute.
+
+## Security
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md).
+
 ## License
 
-This project is open source. See the repository for license details.
+This project is licensed under the [MIT License](LICENSE).
