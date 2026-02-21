@@ -14,8 +14,8 @@ services:
       - "traefik.http.routers.klaps-frontend-${ENV_SUFFIX:-prod}.tls.certresolver=leresolver"
       - "traefik.http.services.klaps-frontend-${ENV_SUFFIX:-prod}.loadbalancer.server.port=3000"
     networks:
-      - proxy
+      - traefik_public
 
 networks:
-  proxy:
+  traefik_public:
     external: true
