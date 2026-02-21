@@ -7,7 +7,7 @@ Thanks for your interest in contributing to Klaps! Here's how to get started.
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/ /klaps.git
+   git clone https://github.com/Biplo12/klaps.git
    cd klaps
    ```
 3. Install dependencies:

@@ -2,7 +2,7 @@ import React from "react";
 import ContentSection from "@/components/common/content-section";
 import AboutBorderedList from "../about-bordered-list";
 
-const GITHUB_FRONTEND = "https://github.com/Biplo12/klaps.space";
+const GITHUB_FRONTEND = "https://github.com/Biplo12/klaps";
 const GITHUB_BACKEND = "https://github.com/Biplo12/klaps-nest-backend";
 
 const OpenSourceSection: React.FC = () => {
@@ -25,12 +25,12 @@ const OpenSourceSection: React.FC = () => {
               className="text-blood-red hover:underline"
               aria-label="Repozytorium frontend na GitHubie"
             >
-              github.com/Biplo12/klaps.space
+              github.com/Biplo12/klaps
             </a>
           </>,
           <>
             <span className="text-white/80 font-medium">Backend</span> (NestJS)
-            &mdash; &mdash;{" "}
+            &mdash;{" "}
             <a
               href={GITHUB_BACKEND}
               target="_blank"

@@ -214,7 +214,7 @@ The project uses **GitHub Actions** for CI/CD (`.github/workflows/deploy.yml`):
 | `NEXT_PUBLIC_SITE_URL` | Yes      | Public site URL (e.g. `https://klaps.space`) |
 | `API_URL`              | Yes      | Backend API base URL                         |
 | `INTERNAL_API_KEY`     | Yes      | Key for authenticating API requests          |
-| `GA_MEASUREMENT_ID`    | Yes      | Google Analytics measurement ID              |
+| `GA_MEASUREMENT_ID`    | No       | Google Analytics measurement ID (production) |
 
 ## Open Source
 
